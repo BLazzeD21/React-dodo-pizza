@@ -1,0 +1,11 @@
+@import './libs/libs.scss';
+
+@import './base/variables.scss';
+@import './base/mixins.scss';
+@import './base/general.scss';
+@import './base/fonts.scss';
+@import './base/animations.scss';
+
+/* Импорты стилей для блоков */
+
+@import './media/media.scss';
