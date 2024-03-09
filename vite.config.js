@@ -6,9 +6,14 @@ export default defineConfig({
     outDir: './build',
     emptyOutDir: true,
   },
-  plugins: [react()],
   server: {
     port: 5500,
     open: true,
+    watch: {
+      usePolling: true
+    }
   },
+  plugins: [
+    react()
+  ]
 });

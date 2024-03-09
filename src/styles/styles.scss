@@ -1,11 +1,15 @@
-@import './libs/libs.scss';
-
 @import './base/variables.scss';
 @import './base/mixins.scss';
 @import './base/general.scss';
 @import './base/fonts.scss';
 @import './base/animations.scss';
 
-/* Импорты стилей для блоков */
+@import './libs/libs.scss';
+
+@import './blocks/button.scss';
+@import './blocks/categories.scss';
+@import './blocks/header.scss';
+@import './blocks/pizza-block.scss';
+@import './blocks/sort.scss';
 
 @import './media/media.scss';
