@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../assets/dodo-pizza.svg';
-import basket from '../assets/basket.svg';
+import cart from '../assets/basket.svg';
 
 const Header = () => {
   return (
@@ -18,7 +18,7 @@ const Header = () => {
             <span>5.2 $</span>
             <div className="button__delimiter"></div>
             <img
-              src={basket}
+              src={cart}
               className="basket"
               width={'22px'}
               alt="basket"

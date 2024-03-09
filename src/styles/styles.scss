@@ -1,15 +1,17 @@
-@import './base/variables.scss';
-@import './base/mixins.scss';
-@import './base/general.scss';
-@import './base/fonts.scss';
-@import './base/animations.scss';
+@import './base/variables';
+@import './base/mixins';
+@import './base/general';
+@import './base/fonts';
+@import './base/animations';
 
-@import './libs/libs.scss';
+@import './libs/libs';
 
-@import './blocks/button.scss';
-@import './blocks/categories.scss';
-@import './blocks/header.scss';
-@import './blocks/pizza-block.scss';
-@import './blocks/sort.scss';
+@import './blocks/button';
+@import './blocks/categories';
+@import './blocks/header';
+@import './blocks/pizza-block';
+@import './blocks/sort';
+@import './blocks/content';
+@import './blocks/sort';
 
-@import './media/media.scss';
+@import './media/media';

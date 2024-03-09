@@ -1,0 +1,21 @@
+.content {
+  padding: 40px 0;
+
+  &__title {
+    margin: 35px 0;
+    font-weight: regular;
+  }
+
+  &__items {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 40px;
+    column-gap: 50px;
+  }
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
