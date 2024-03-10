@@ -22,7 +22,7 @@ const Pizza = () => {
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">from 3.9 $</div>
-        <div className="button button--outline button--add">
+        <button className="button button--outline button--add">
           <svg
             width="12"
             height="12"
@@ -41,8 +41,8 @@ const Pizza = () => {
             />
           </svg>
           <span>add</span>
-          <i>1</i>
-        </div>
+          <i>0</i>
+        </button>
       </div>
     </div>
   );
