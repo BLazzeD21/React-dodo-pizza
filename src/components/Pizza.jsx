@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const Pizza = (props) => {
-  const { title, imageUrl } = props;
+  const { title, imageUrl, types, sizes } = props;
+  const pizzasTypes = ['thin', 'traditional'];
+
+  const [activeSize, setActiveSize] = useState(0);
+  const [activeType, setActiveType] = useState(0);
+
   return (
     <div className="pizza-block">
       <img
@@ -12,13 +17,28 @@ const Pizza = (props) => {
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          <li className="active">thin</li>
-          <li>traditional</li>
+          {types.map((type) => (
+            <li
+              key={type}
+              className={activeType === type ? 'active' : ''}
+              onClick={() => {
+                setActiveType(type);
+              }}
+            >
+              {pizzasTypes[type]}
+            </li>
+          ))}
         </ul>
         <ul>
-          <li className="active">25 cm</li>
-          <li>30 cm</li>
-          <li>40 cm</li>
+          {sizes.map((size, index) => (
+            <li
+              key={index}
+              className={activeSize === index ? 'active' : ''}
+              onClick={() => {
+                setActiveSize(index);
+              }}
+            >{size} cm</li>
+          ))}
         </ul>
       </div>
       <div className="pizza-block__bottom">
