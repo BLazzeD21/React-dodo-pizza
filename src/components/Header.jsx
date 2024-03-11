@@ -15,7 +15,7 @@ const Header = () => {
         </div>
         <div className="header__cart">
           <a href="/cart.html" className="button button--cart">
-            <span>5.2 $</span>
+            <span>0 $</span>
             <div className="button__delimiter"></div>
             <img
               src={cart}
@@ -23,7 +23,7 @@ const Header = () => {
               width={'22px'}
               alt="basket"
             />
-            <span>3</span>
+            <span>0</span>
           </a>
         </div>
       </div>

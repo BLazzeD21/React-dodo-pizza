@@ -10,10 +10,10 @@ export default defineConfig({
     port: 5500,
     open: true,
     watch: {
-      usePolling: true
-    }
+      usePolling: true,
+    },
   },
   plugins: [
-    react()
-  ]
+    react(),
+  ],
 });
