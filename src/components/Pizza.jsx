@@ -17,12 +17,12 @@ const Pizza = (props) => {
       <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {types.map((type) => (
+          {types.map((type, index) => (
             <li
               key={type}
-              className={activeType === type ? 'active' : ''}
+              className={activeType === index ? 'active' : ''}
               onClick={() => {
-                setActiveType(type);
+                setActiveType(index);
               }}
             >
               {pizzasTypes[type]}
