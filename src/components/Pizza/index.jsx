@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Pizza = (props) => {
-  const { title, imageUrl, types, sizes } = props;
+  const { title, imageUrl, types, sizes, price } = props;
   const pizzasTypes = ['thin', 'traditional'];
 
   const [activeSize, setActiveSize] = useState(0);
@@ -42,7 +42,7 @@ const Pizza = (props) => {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">from 3.9 $</div>
+        <div className="pizza-block__price">from {price} $</div>
         <button className="button button--outline button--add">
           <svg
             width="12"

@@ -1,0 +1,16 @@
+.Loader {
+  &__wrapper {
+    display: flex;
+    align-items: center;
+    height: 600px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+  }
+  border: 15px solid $orange;
+  border-radius: 50%;
+  border-top: 15px outset white;
+  width: 150px;
+  height: 150px;
+  animation: loader 2s linear infinite;
+}
