@@ -6,8 +6,14 @@
   &__title {
     font-weight: 400;
     font-size: 60px;
+    @media screen and (max-width: 800px) {
+      font-size: 30px;
+    }
   }
   &__img {
     width: 40%;
+    @media screen and (max-width: 800px) {
+      width: 100%;
+    }
   }
 }

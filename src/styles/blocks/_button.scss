@@ -141,4 +141,8 @@
       font-size: 18px;
     }
   }
+
+  @media screen and (max-width: 414px) {
+    min-width: 80px;
+  }
 }

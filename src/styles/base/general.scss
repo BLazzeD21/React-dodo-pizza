@@ -25,6 +25,10 @@ body {
   margin: 50px auto;
   border-radius: 10px;
   max-width: 1400px;
+  @media screen and (max-width: 874px) {
+    width: calc(100vw - 30px);
+    margin: 15px auto;
+  }
 }
 
 .container {

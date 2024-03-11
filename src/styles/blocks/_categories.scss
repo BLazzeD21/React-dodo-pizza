@@ -1,12 +1,27 @@
 .categories {
   ul {
     display: flex;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: 1070px) {
+      justify-content: center;
+    }
+
+    li:not(:last-child) {
+      margin-right: 10px;
+    }
 
     li {
       background-color: #f9f9f9;
       padding: 10px 30px;
       border-radius: 30px;
-      margin-right: 10px;
+
+      @media screen and (max-width: 872px) {
+        padding: 5px 15px;
+        margin: 5px;
+        font-size: 14px;
+      }
+
       cursor: pointer;
       transition: background-color 0.1s ease-in-out;
       @include noselect();
