@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import cart from '../assets/cartBlack.svg';
 import CartClear from './CartClear';
-import CartItem from './CartItem';
+// import CartItem from './CartItem';
 
 const Cart = () => {
   return (

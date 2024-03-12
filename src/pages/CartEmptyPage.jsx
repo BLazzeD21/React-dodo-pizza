@@ -2,10 +2,10 @@ import React from 'react';
 import picture from '../assets/dodoEmployee1.svg';
 import EmptyBlock from '../components/EmptyBlock';
 
-const NotFound = () => {
+const CartEmplyPage = () => {
   return (
-    <EmptyBlock title='PAGE NOT FOUND' image={picture} />
+    <EmptyBlock title='CART IS EMPTY' image={picture}/>
   );
 };
 
-export default NotFound;
+export default CartEmplyPage;

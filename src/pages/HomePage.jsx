@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import Categories from '../components/Categories';
-import PizzaSkeleton from '../components/Pizza/PizzaSkeleton';
-import Pizza from '../components/Pizza';
+import PizzaSkeleton from '../components/PizzaBlock/PizzaSkeleton';
+import Pizza from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 
 const MOCKAPISECRET = import.meta.env.VITE_MOCKAPISECRET;
