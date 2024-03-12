@@ -6,7 +6,7 @@ import Sort from '../components/Sort';
 
 const MOCKAPISECRET = import.meta.env.VITE_MOCKAPISECRET;
 
-const Home = () => {
+const HomePage = () => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -43,4 +43,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;

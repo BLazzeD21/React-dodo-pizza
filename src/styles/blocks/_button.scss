@@ -94,6 +94,9 @@
   }
 
   &--add {
+    @media screen and (max-width: 414px) {
+      min-width: 80px;
+    }
     min-width: 140px;
     svg {
       margin-right: 5px;
@@ -140,9 +143,5 @@
     span {
       font-size: 18px;
     }
-  }
-
-  @media screen and (max-width: 414px) {
-    min-width: 80px;
   }
 }

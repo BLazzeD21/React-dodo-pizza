@@ -6,16 +6,16 @@ import { Route,
 
 import './styles/styles.scss';
 
-const Home = lazy(() => import('./pages/Home'));
-const Layout = lazy(() => import('./pages/Layout'));
-const NotFound = lazy(() => import('./pages/NotFound'));
-const Cart = lazy(() => import('./pages/Cart'));
+const HomePage = lazy(() => import('./pages/HomePage'));
+const LayoutPage = lazy(() => import('./pages/LayoutPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFound'));
+const CartPage = lazy(() => import('./pages/CartPage'));
 
 const router = createBrowserRouter(createRoutesFromElements(
-    <Route path='/' element={<Layout />}>
-      <Route index element={<Home />} />
-      <Route path='/cart' element={<Cart />} />
-      <Route path='*' element={<NotFound />} />
+    <Route path='/' element={<LayoutPage />}>
+      <Route index element={<HomePage />} />
+      <Route path='/cart' element={<CartPage />} />
+      <Route path='*' element={<NotFoundPage />} />
     </Route>));
 
 const App = () => {
