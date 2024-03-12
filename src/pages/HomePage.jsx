@@ -21,6 +21,8 @@ const HomePage = () => {
             setIsLoading(false);
           }, 500);
         });
+
+    window.scrollTo(0, 0);
   }, []);
 
   return (
