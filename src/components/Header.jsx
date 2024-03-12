@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../assets/dodoPizza.svg';
-import cart from '../assets/cart.svg';
+import cart from '../assets/cartWhite.svg';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
