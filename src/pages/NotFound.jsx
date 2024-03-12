@@ -1,6 +1,6 @@
 import React from 'react';
 import lineLogo from '../assets/dodoPizzaLine.svg';
-import picture from '../assets/dodoEmployee.svg';
+import picture from '../assets/dodoEmployee1.svg';
 
 const NotFound = () => {
   return (
