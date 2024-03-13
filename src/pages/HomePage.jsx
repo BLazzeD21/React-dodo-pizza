@@ -10,8 +10,11 @@ const HomePage = () => {
   const [pizzas, setPizzas] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [selectedCategory, setSelectedCategory] = useState(0);
+
   useEffect(() => {
-    fetch(`https://${MOCKAPISECRET}.mockapi.io/api/pizzas`)
+    setIsLoading(true);
+    fetch(`https://${MOCKAPISECRET}.mockapi.io/api/pizzas?category=` + selectedCategory)
         .then((res) => {
           return res.json();
         })
@@ -23,14 +26,18 @@ const HomePage = () => {
         });
 
     window.scrollTo(0, 0);
-  }, []);
+  }, [selectedCategory]);
 
   return (
     <Fragment>
       <div className="content__top">
-        <Categories />
+        <Categories
+          selectedCategory={selectedCategory}
+          setSelectedCategory={(id) => setSelectedCategory(id)}
+        />
         <Sort />
       </div>
+
       <h2 className="content__title">All pizzas</h2>
       <div className="content__items">
         {
