@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import arrow from '../assets/arrow.svg';
 
-const Sort = () => {
-  const [visibleSelect, setVisibleSelect] = useState(false);
-  const [sortBy, setSortBy] = useState(0);
-  const sortList = ['popularity', 'price', 'alphabet'];
+const Sort = ({ sortTypes, sortBy, setSortBy }) => {
+  const [visibleSelect, setVisibleSelect] = useState( false );
 
-  const onClickSort = (index) => {
-    setSortBy(index);
+  const onClickSort = (type) => {
+    setSortBy(type);
     setVisibleSelect(!visibleSelect);
   };
 
@@ -21,21 +19,21 @@ const Sort = () => {
         />
         <b>Sort by:</b>
         <span onClick={() => setVisibleSelect(!visibleSelect)}>
-          {sortList[sortBy]}
+          {sortBy.name}
         </span>
       </div>
       {visibleSelect && (<div className="sort__popup">
         <ul>
           {
-            sortList.map((sort, index) => (
+            sortTypes.map((type, index) => (
               <li
                 key={index}
-                className={sortBy === index ? 'active' : ''}
+                className={sortBy.name === type.name ? 'active' : ''}
                 onClick={() => {
-                  onClickSort(index);
+                  onClickSort(type);
                 }}
               >
-                {sort}
+                {type.name}
               </li>
             ))
           }
