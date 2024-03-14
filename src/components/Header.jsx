@@ -2,8 +2,9 @@ import React from 'react';
 import logo from '../assets/dodoPizza.svg';
 import cart from '../assets/cartWhite.svg';
 import { Link } from 'react-router-dom';
+import Input from './Input';
 
-const Header = () => {
+const Header = ({ searchQueue, setSearchQueue }) => {
   return (
     <div className="header">
       <div className="container">
@@ -16,6 +17,10 @@ const Header = () => {
             </div>
           </div>
         </Link>
+        <Input
+          searchQueue={searchQueue}
+          setSearchQueue={setSearchQueue}
+        />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>0 $</span>

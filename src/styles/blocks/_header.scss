@@ -3,6 +3,7 @@
   padding: 40px 0;
   .container {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
   }
@@ -27,6 +28,23 @@
     }
   }
 
+  @media screen and (max-width: 1018px) {
+    .container {
+      justify-content: space-around;
+    }
+    &__logo {
+      margin-right: 60px;
+    }
+    &__cart {
+      margin-top: 20px;
+    }
+  }
+  @media screen and (max-width: 792px) {
+    &__cart {
+      margin-top: 0;
+    }
+  }
+
   @media screen and (max-width: 694px) {
     .container {
       flex-direction: column;
@@ -35,6 +53,7 @@
       margin-top: 30px;
     }
     &__logo {
+      margin-right: 0;
       h1 {
         font-size: 20px;
       }

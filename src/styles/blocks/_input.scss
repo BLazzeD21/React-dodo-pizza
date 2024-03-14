@@ -1,0 +1,59 @@
+$inactive-opacity: .3;
+$active-opacity: 1;
+
+.input {
+  &__wrapper {
+    position: relative;
+    @media screen and (max-width: 694px) {
+      margin-top: 15px;
+    }
+  }
+
+  &__search, &__clear {
+    position: absolute;
+    bottom: 50%;
+    transform: translateY(50%);
+    width: 25px;
+    height: 25px;
+    opacity: $inactive-opacity;
+  }
+
+  &__search {
+    left: 8px;
+  }
+  &__clear {
+    right: 8px;
+    cursor: pointer;
+    &:hover {
+      opacity: $active-opacity;
+    }
+  }
+
+  margin: 10px 0;
+  border: 1px solid rgba($color: black, $alpha: $inactive-opacity);
+  padding: 13px 33px;
+  font-size: 18px;
+  width: 400px;
+  @media screen and (max-width: 1180px) {
+    width: 300px;
+    padding: 10px 33px;
+  }
+  @media screen and (max-width: 1038px) {
+    width: 250px;
+    font-size: 14px;
+    padding: 10px 30px;
+    &__search, &__clear {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  border-radius: 10px;
+  color: rgba($color: black, $alpha: $inactive-opacity);
+  transition: all .10s ease-in-out;
+
+  &:focus {
+    border: 1px solid rgba($color: black, $alpha: $active-opacity);
+    color: rgba($color: black, $alpha: $active-opacity);
+    $icon-opacity: 1;
+  }
+}
