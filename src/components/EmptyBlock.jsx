@@ -1,5 +1,5 @@
 import React from 'react';
-import lineLogo from '../assets/dodoPizzaLine.svg';
+import lineLogo from '../assets/images/dodoPizzaLine.svg';
 import { Link } from 'react-router-dom';
 
 const EmptyBlock = ({ title, image }) => {

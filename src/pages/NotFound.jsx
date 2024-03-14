@@ -1,5 +1,5 @@
 import React from 'react';
-import picture from '../assets/dodoEmployee1.svg';
+import picture from '../assets/images/dodoEmployee1.svg';
 import EmptyBlock from '../components/EmptyBlock';
 
 const NotFound = () => {

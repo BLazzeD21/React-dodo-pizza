@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import cart from '../assets/cartBlack.svg';
+import cart from '../assets/icons/cartBlack.svg';
 import CartClear from './CartClear';
 import CartItem from './CartItem';
 

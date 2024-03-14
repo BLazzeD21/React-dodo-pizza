@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import arrow from '../assets/arrow.svg';
+import arrow from '../assets/icons/arrow.svg';
 
 const Sort = ({ sortTypes, sortBy, setSortBy }) => {
   const [visibleSelect, setVisibleSelect] = useState( false );

@@ -1,0 +1,36 @@
+.pagination {
+  &__wrapper {
+    margin: 40px 0;
+    display: flex;
+    justify-content: center;
+  }
+  display: flex;
+  flex-direction: row;
+  transition: all 0.3s ease-in-out;
+  &__page {
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    width: 45px;
+    height: 45px;
+    margin: 0 10px;
+    border-radius: 50%;
+    color: $orange;
+    border: 1px solid $orange;
+    &--active {
+      background-color: $orange;
+      color: white;
+    }
+    &--blocked {
+      pointer-events: none;
+      opacity: .4;
+    }
+    &:hover {
+      background-color: rgba($color: $orange, $alpha: .7);
+      border: 1px solid rgba($color: $orange, $alpha: .7);
+      color: white;
+    }
+  }
+}
