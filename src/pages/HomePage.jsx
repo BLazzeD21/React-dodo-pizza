@@ -80,7 +80,7 @@ const HomePage = ({ searchQueue }) => {
 
   const pizzasPage = paginate(pizzasList, PAGE_SIZE, currentPage + 1);
 
-  const nothingFound = pizzasCount === 0;
+  const nothingFound = pizzasPage.length === 0;
 
   return (
     <Fragment>
