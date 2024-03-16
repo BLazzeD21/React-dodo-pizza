@@ -50,9 +50,11 @@ const HomePage = ({ searchQueue }) => {
           setItems(data);
           setIsLoading(false);
         });
-
-    window.scrollTo(0, 0);
   }, [selectedCategory, sortBy]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [currentPage, selectedCategory, sortBy]);
 
   useEffect(() => {
     setCurrentPage(0);
@@ -100,7 +102,7 @@ const HomePage = ({ searchQueue }) => {
           sortTypes={sortTypes}
         />
       </div>
-      <div className={'content__items'}>
+      <div className='content__items'>
         {isLoading ? Skeleton : itemsPage}
       </div>
       {nothingFound ? <SearchEmpty searchQuery={searchQueue} /> : showPages}
