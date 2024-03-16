@@ -9,6 +9,8 @@ import paginate from '../utils/pagination';
 
 const MOCKAPISECRET = import.meta.env.VITE_MOCKAPISECRET;
 
+const PAGE_SIZE = 8;
+
 const sortTypes = [
   { name: 'popularity (asc)', sortBy: 'rating', order: 'asc' },
   { name: 'popularity (desc)', sortBy: 'rating', order: 'desc' },
@@ -19,7 +21,7 @@ const sortTypes = [
 ];
 
 const HomePage = ({ searchQueue }) => {
-  const [pizzas, setPizzas] = useState([]);
+  const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [selectedCategory, setSelectedCategory] = useState(0);
@@ -45,30 +47,29 @@ const HomePage = ({ searchQueue }) => {
           return res.json();
         })
         .then((data) => {
-          setPizzas(data);
+          setItems(data);
           setIsLoading(false);
         });
 
     window.scrollTo(0, 0);
   }, [selectedCategory, sortBy]);
 
-  const pizzasList = pizzas
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [searchQueue]);
+
+  const filteredItems = items
       .filter((pizza) => {
         return pizza.title.toLowerCase().includes(searchQueue.toLowerCase());
       })
       .map((pizza, index) => <Pizza key={index} {...pizza} />);
 
-  const Skeleton = [...new Array(8)].map((_, index) => (
-    <PizzaSkeleton key={index} />
-  ));
+  const itemsCount = filteredItems.length;
 
-  const pizzasCount = pizzas.length;
-  const PAGE_SIZE = 8;
-
-  const pages = Math.ceil(pizzasCount / PAGE_SIZE);
+  const pages = Math.ceil(itemsCount / PAGE_SIZE);
 
   const showPages =
-    pages - 1 ? (
+    ( pages - 1 ) ? (
       <Pagination
         pages={pages}
         page={currentPage}
@@ -78,9 +79,13 @@ const HomePage = ({ searchQueue }) => {
       ''
     );
 
-  const pizzasPage = paginate(pizzasList, PAGE_SIZE, currentPage + 1);
+  const itemsPage = paginate(filteredItems, PAGE_SIZE, currentPage + 1);
 
-  const nothingFound = pizzasPage.length === 0;
+  const Skeleton = [...new Array(8)].map((_, index) => (
+    <PizzaSkeleton key={index} />
+  ));
+
+  const nothingFound = ( itemsCount === 0 );
 
   return (
     <Fragment>
@@ -96,7 +101,7 @@ const HomePage = ({ searchQueue }) => {
         />
       </div>
       <div className={'content__items'}>
-        {isLoading ? Skeleton : pizzasPage}
+        {isLoading ? Skeleton : itemsPage}
       </div>
       {nothingFound ? <SearchEmpty searchQuery={searchQueue} /> : showPages}
     </Fragment>
