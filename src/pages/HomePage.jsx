@@ -1,11 +1,14 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState, useEffect, useContext } from 'react';
 import Categories from '../components/Categories';
 import PizzaSkeleton from '../components/PizzaBlock/PizzaSkeleton';
 import Pizza from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 import SearchEmpty from '../components/SearchEmpty';
 import Pagination from '../components/Pagination';
+
 import paginate from '../utils/pagination';
+
+import { SearchContext } from '../App';
 
 const MOCKAPISECRET = import.meta.env.VITE_MOCKAPISECRET;
 
@@ -20,12 +23,14 @@ const sortTypes = [
   { name: 'alphabet (desc)', sortBy: 'title', order: 'desc' },
 ];
 
-const HomePage = ({ searchQueue }) => {
+const HomePage = () => {
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [selectedCategory, setSelectedCategory] = useState(0);
   const [sortBy, setSortBy] = useState(sortTypes[0]);
+
+  const { searchQueue } = useContext(SearchContext);
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -71,7 +76,7 @@ const HomePage = ({ searchQueue }) => {
   const pages = Math.ceil(itemsCount / PAGE_SIZE);
 
   const showPages =
-    ( pages - 1 ) ? (
+    pages - 1 ? (
       <Pagination
         pages={pages}
         page={currentPage}
@@ -87,7 +92,7 @@ const HomePage = ({ searchQueue }) => {
     <PizzaSkeleton key={index} />
   ));
 
-  const nothingFound = ( itemsCount === 0 );
+  const nothingFound = itemsCount === 0;
 
   return (
     <Fragment>
@@ -102,9 +107,7 @@ const HomePage = ({ searchQueue }) => {
           sortTypes={sortTypes}
         />
       </div>
-      <div className='content__items'>
-        {isLoading ? Skeleton : itemsPage}
-      </div>
+      <div className="content__items">{isLoading ? Skeleton : itemsPage}</div>
       {nothingFound ? <SearchEmpty searchQuery={searchQueue} /> : showPages}
     </Fragment>
   );

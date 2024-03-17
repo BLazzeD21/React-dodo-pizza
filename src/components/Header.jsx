@@ -4,7 +4,7 @@ import cart from '../assets/icons/cartWhite.svg';
 import { Link } from 'react-router-dom';
 import Input from './Input';
 
-const Header = ({ searchQueue, setSearchQueue }) => {
+const Header = () => {
   return (
     <div className="header">
       <div className="container">
@@ -17,20 +17,12 @@ const Header = ({ searchQueue, setSearchQueue }) => {
             </div>
           </div>
         </Link>
-        <Input
-          searchQueue={searchQueue}
-          setSearchQueue={setSearchQueue}
-        />
+        <Input />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>0 $</span>
             <div className="button__delimiter"></div>
-            <img
-              src={cart}
-              className="basket"
-              width={'22px'}
-              alt="basket"
-            />
+            <img src={cart} className="basket" width={'22px'} alt="basket" />
             <span>0</span>
           </Link>
         </div>

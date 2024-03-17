@@ -1,6 +1,9 @@
-import React, { useRef } from 'react';
+import React, { useRef, useContext } from 'react';
+import { SearchContext } from '../App';
 
-const Input = ({ searchQueue, setSearchQueue }) => {
+const Input = () => {
+  const { searchQueue, setSearchQueue } = useContext(SearchContext);
+
   const searchInput = useRef(null);
 
   return (

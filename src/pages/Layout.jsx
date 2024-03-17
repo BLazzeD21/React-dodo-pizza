@@ -3,13 +3,10 @@ import { Outlet } from 'react-router-dom';
 import Header from '../components/Header';
 import Loading from '../components/Loading';
 
-export const Layout = ({ searchQueue, setSearchQueue }) => {
+export const Layout = () => {
   return (
     <div className="wrapper">
-      <Header
-        searchQueue={searchQueue}
-        setSearchQueue={setSearchQueue}
-      />
+      <Header />
       <div className="content">
         <div className="container">
           <Suspense fallback={<Loading />}>
