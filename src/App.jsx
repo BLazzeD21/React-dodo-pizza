@@ -1,10 +1,11 @@
-import React, { lazy, useState, createContext } from 'react';
+import React, { lazy, useState, createContext, Suspense } from 'react';
 import {
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
 } from 'react-router-dom';
+import Loading from './components/Loading';
 
 import './styles/styles.scss';
 
@@ -22,7 +23,6 @@ const App = () => {
       createRoutesFromElements(
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
-
             <Route path="/cart" element={<CartPage />} />
             <Route path="*" element={<NotFoundPage />} />
           </Route>),
@@ -30,7 +30,9 @@ const App = () => {
 
   return (
     <SearchContext.Provider value={{ searchQueue, setSearchQueue }}>
-      <RouterProvider router={router} />
+      <Suspense fallback={<Loading />}>
+        <RouterProvider router={router} />
+      </Suspense>
     </SearchContext.Provider>
   );
 };
