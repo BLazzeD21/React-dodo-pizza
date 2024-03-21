@@ -1,9 +1,11 @@
-import React, { useRef, useContext } from 'react';
-import { SearchContext } from '../App';
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchQueue } from '../store/slices/filterSlice';
+
 
 const Input = () => {
-  const { searchQueue, setSearchQueue } = useContext(SearchContext);
-
+  const dispatch = useDispatch();
+  const { searchQueue } = useSelector((state) => state.filter);
   const searchInput = useRef(null);
 
   return (
@@ -13,7 +15,7 @@ const Input = () => {
       <input
         ref={searchInput}
         value={searchQueue}
-        onChange={(event) => setSearchQueue(event.target.value)}
+        onChange={(event) => dispatch(setSearchQueue(event.target.value))}
         onKeyDown={(event) => {
           if (event.key === 'Enter') searchInput.current.blur();
         }}

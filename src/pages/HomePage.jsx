@@ -1,4 +1,5 @@
-import React, { Fragment, useState, useEffect, useContext } from 'react';
+import React, { Fragment, useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import Categories from '../components/Categories';
 import PizzaSkeleton from '../components/PizzaBlock/PizzaSkeleton';
 import Pizza from '../components/PizzaBlock';
@@ -8,29 +9,20 @@ import Pagination from '../components/Pagination';
 
 import paginate from '../utils/pagination';
 
-import { SearchContext } from '../App';
+import { setCategoryId } from '../store/slices/filterSlice';
 
 const MOCKAPISECRET = import.meta.env.VITE_MOCKAPISECRET;
 
 const PAGE_SIZE = 8;
 
-const sortTypes = [
-  { name: 'popularity (asc)', sortBy: 'rating', order: 'asc' },
-  { name: 'popularity (desc)', sortBy: 'rating', order: 'desc' },
-  { name: 'price (asc)', sortBy: 'price', order: 'asc' },
-  { name: 'price (desc)', sortBy: 'price', order: 'desc' },
-  { name: 'alphabet (asc)', sortBy: 'title', order: 'asc' },
-  { name: 'alphabet (desc)', sortBy: 'title', order: 'desc' },
-];
-
 const HomePage = () => {
+  const dispatch = useDispatch();
+  const { categoryId,
+    sortType,
+    searchQueue } = useSelector((state) => state.filter);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const [selectedCategory, setSelectedCategory] = useState(0);
-  const [sortBy, setSortBy] = useState(sortTypes[0]);
-
-  const { searchQueue } = useContext(SearchContext);
 
   const [currentPage, setCurrentPage] = useState(0);
 
@@ -40,9 +32,9 @@ const HomePage = () => {
 
     const url = new URL(`https://${MOCKAPISECRET}.mockapi.io/api/pizzas`);
 
-    url.searchParams.append('sortBy', sortBy.sortBy);
-    url.searchParams.append('order', sortBy.order);
-    url.searchParams.append('category', selectedCategory);
+    url.searchParams.append('sortBy', sortType.sortBy);
+    url.searchParams.append('order', sortType.order);
+    url.searchParams.append('category', categoryId);
 
     fetch(url, {
       method: 'GET',
@@ -55,11 +47,11 @@ const HomePage = () => {
           setItems(data);
           setIsLoading(false);
         });
-  }, [selectedCategory, sortBy]);
+  }, [categoryId, sortType]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [currentPage, selectedCategory, sortBy]);
+  }, [currentPage, categoryId, sortType]);
 
   useEffect(() => {
     setCurrentPage(0);
@@ -98,14 +90,10 @@ const HomePage = () => {
     <Fragment>
       <div className="content__top">
         <Categories
-          selectedCategory={selectedCategory}
-          setSelectedCategory={(id) => setSelectedCategory(id)}
+          selectedCategory={categoryId}
+          setSelectedCategory={(id) => dispatch(setCategoryId(id))}
         />
-        <Sort
-          sortBy={sortBy}
-          setSortBy={(type) => setSortBy(type)}
-          sortTypes={sortTypes}
-        />
+        <Sort />
       </div>
       <div className="content__items">{isLoading ? Skeleton : itemsPage}</div>
       {nothingFound ? <SearchEmpty searchQuery={searchQueue} /> : showPages}

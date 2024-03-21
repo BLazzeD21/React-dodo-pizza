@@ -1,4 +1,4 @@
-import React, { lazy, useState, createContext, Suspense } from 'react';
+import React, { lazy, Suspense } from 'react';
 import {
   Route,
   RouterProvider,
@@ -14,11 +14,8 @@ const Layout = lazy(() => import('./pages/Layout'));
 const NotFoundPage = lazy(() => import('./pages/NotFound'));
 const CartPage = lazy(() => import('./pages/CartPage'));
 
-export const SearchContext = createContext('');
 
 const App = () => {
-  const [searchQueue, setSearchQueue] = useState('');
-
   const router = createBrowserRouter(
       createRoutesFromElements(
           <Route path="/" element={<Layout />}>
@@ -29,11 +26,9 @@ const App = () => {
   );
 
   return (
-    <SearchContext.Provider value={{ searchQueue, setSearchQueue }}>
-      <Suspense fallback={<Loading />}>
-        <RouterProvider router={router} />
-      </Suspense>
-    </SearchContext.Provider>
+    <Suspense fallback={<Loading />}>
+      <RouterProvider router={router} />
+    </Suspense>
   );
 };
 
