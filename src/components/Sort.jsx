@@ -2,15 +2,7 @@ import React, { useState } from 'react';
 import arrow from '../assets/icons/arrow.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortType } from '../store/slices/filterSlice';
-
-const sortTypes = [
-  { name: 'popularity (asc)', sortBy: 'rating', order: 'asc' },
-  { name: 'popularity (desc)', sortBy: 'rating', order: 'desc' },
-  { name: 'price (asc)', sortBy: 'price', order: 'asc' },
-  { name: 'price (desc)', sortBy: 'price', order: 'desc' },
-  { name: 'alphabet (asc)', sortBy: 'title', order: 'asc' },
-  { name: 'alphabet (desc)', sortBy: 'title', order: 'desc' },
-];
+import { sortTypes } from '../utils/sortTypes';
 
 const Sort = () => {
   const dispatch = useDispatch();
