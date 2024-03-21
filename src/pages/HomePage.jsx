@@ -1,5 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+
 import Categories from '../components/Categories';
 import PizzaSkeleton from '../components/PizzaBlock/PizzaSkeleton';
 import Pizza from '../components/PizzaBlock';
@@ -20,15 +22,14 @@ const HomePage = () => {
   const { categoryId,
     sortType,
     searchQueue } = useSelector((state) => state.filter);
-
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
-    setCurrentPage(0);
     setIsLoading(true);
+    setCurrentPage(0);
 
     const url = new URL(`https://${MOCKAPISECRET}.mockapi.io/api/pizzas`);
 
@@ -36,17 +37,16 @@ const HomePage = () => {
     url.searchParams.append('order', sortType.order);
     url.searchParams.append('category', categoryId);
 
-    fetch(url, {
+    axios({
       method: 'GET',
-      headers: { 'content-type': 'application/json' },
-    })
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          setItems(data);
-          setIsLoading(false);
-        });
+      url: url,
+      headers: {
+        'content-type': 'application/json',
+      },
+    }).then((response) => {
+      setItems(response.data);
+      setIsLoading(false);
+    });
   }, [categoryId, sortType]);
 
   useEffect(() => {

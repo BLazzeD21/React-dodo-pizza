@@ -1,16 +1,32 @@
-import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useState, useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import { setSearchQueue } from '../store/slices/filterSlice';
-
+import debounce from 'lodash.debounce';
 
 const Search = () => {
   const dispatch = useDispatch();
-  const { searchQueue } = useSelector((state) => state.filter);
+
+  const [value, setValue] = useState('');
+
   const searchInput = useRef();
 
   const clearSearchQueue = () => {
+    setValue('');
     dispatch(setSearchQueue(''));
     searchInput.current.focus();
+  };
+
+  const updateSearchQueue = useCallback(
+      debounce((str) => {
+        dispatch(setSearchQueue(str));
+        console.log(1);
+      }, 250),
+      [],
+  );
+
+  const onChangeInput = (event) => {
+    setValue(event.target.value);
+    updateSearchQueue(event.target.value);
   };
 
   return (
@@ -19,8 +35,8 @@ const Search = () => {
 
       <input
         ref={searchInput}
-        value={searchQueue}
-        onChange={(event) => dispatch(setSearchQueue(event.target.value))}
+        value={value}
+        onChange={(event) => onChangeInput(event)}
         onKeyDown={(event) => {
           if (event.key === 'Enter') searchInput.current.blur();
         }}
