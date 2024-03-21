@@ -3,10 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setSearchQueue } from '../store/slices/filterSlice';
 
 
-const Input = () => {
+const Search = () => {
   const dispatch = useDispatch();
   const { searchQueue } = useSelector((state) => state.filter);
-  const searchInput = useRef(null);
+  const searchInput = useRef();
+
+  const clearSearchQueue = () => {
+    dispatch(setSearchQueue(''));
+    searchInput.current.focus();
+  };
 
   return (
     <div className="input__wrapper">
@@ -23,9 +28,9 @@ const Input = () => {
         placeholder='Search the pizza...'
       />
 
-      <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" className='input__clear' onClick={()=> setSearchQueue('')}><rect fill="none" height="256" width="256"/><line fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8" x1="216" x2="40" y1="56" y2="56"/><line fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8" x1="104" x2="104" y1="104" y2="168"/><line fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8" x1="152" x2="152" y1="104" y2="168"/><path d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"/><path d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"/></svg>
+      <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" className='input__clear' onClick={clearSearchQueue}><rect fill="none" height="256" width="256"/><line fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8" x1="216" x2="40" y1="56" y2="56"/><line fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8" x1="104" x2="104" y1="104" y2="168"/><line fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8" x1="152" x2="152" y1="104" y2="168"/><path d="M200,56V208a8,8,0,0,1-8,8H64a8,8,0,0,1-8-8V56" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"/><path d="M168,56V40a16,16,0,0,0-16-16H104A16,16,0,0,0,88,40V56" fill="none" stroke="#000" strokeLinecap="round" strokeLinejoin="round" strokeWidth="8"/></svg>
     </div>
   );
 };
 
-export default Input;
+export default Search;

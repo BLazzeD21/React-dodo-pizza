@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../assets/icons/dodoPizza.svg';
 import cart from '../assets/icons/cartWhite.svg';
 import { Link } from 'react-router-dom';
-import Input from './Input';
+import Input from './Search';
 
 const Header = () => {
   return (
