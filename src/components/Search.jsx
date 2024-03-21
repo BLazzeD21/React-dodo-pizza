@@ -19,7 +19,6 @@ const Search = () => {
   const updateSearchQueue = useCallback(
       debounce((str) => {
         dispatch(setSearchQueue(str));
-        console.log(1);
       }, 250),
       [],
   );

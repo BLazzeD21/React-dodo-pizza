@@ -11,7 +11,7 @@ import Pagination from '../components/Pagination';
 
 import paginate from '../utils/pagination';
 
-import { setCategoryId } from '../store/slices/filterSlice';
+import { setCategoryId, setCurrentPage } from '../store/slices/filterSlice';
 
 const MOCKAPISECRET = import.meta.env.VITE_MOCKAPISECRET;
 
@@ -19,13 +19,13 @@ const PAGE_SIZE = 8;
 
 const HomePage = () => {
   const dispatch = useDispatch();
-  const { categoryId,
-    sortType,
-    searchQueue } = useSelector((state) => state.filter);
+
+  const { categoryId, sortType,
+    searchQueue, currentPage } = useSelector((state) => state.filter);
+
   const [items, setItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  const [currentPage, setCurrentPage] = useState(0);
 
   useEffect(() => {
     setIsLoading(true);
@@ -54,8 +54,8 @@ const HomePage = () => {
   }, [currentPage, categoryId, sortType]);
 
   useEffect(() => {
-    setCurrentPage(0);
-  }, [searchQueue]);
+    dispatch(setCurrentPage(0));
+  }, [searchQueue, dispatch]);
 
   const filteredItems = items
       .filter((pizza) => {
@@ -72,7 +72,7 @@ const HomePage = () => {
       <Pagination
         pages={pages}
         page={currentPage}
-        setPage={(page) => setCurrentPage(page)}
+        setPage={(page) => dispatch(setCurrentPage(page))}
       />
     ) : (
       ''

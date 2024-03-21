@@ -8,6 +8,7 @@ const initialState = {
     order: 'asc',
   },
   searchQueue: '',
+  currentPage: 0,
 };
 
 
@@ -24,12 +25,14 @@ export const filterSlice = createSlice({
     setSearchQueue(state, action) {
       state.searchQueue = action.payload;
     },
+    setCurrentPage(state, action) {
+      state.currentPage = action.payload;
+    },
   },
 });
 
-export const { setCategoryId,
-  setSortType,
-  setSearchQueue } = filterSlice.actions;
+export const { setCategoryId, setSortType,
+  setSearchQueue, setCurrentPage } = filterSlice.actions;
 
 
 export default filterSlice.reducer;
