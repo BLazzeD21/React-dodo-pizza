@@ -10,7 +10,7 @@ const CartItem = (props) => {
         <img
           className="pizza-block__image"
           src={imageUrl}
-          alt="Pizza"
+          alt={title}
         />
       </div>
       <div className="cart__item-info">

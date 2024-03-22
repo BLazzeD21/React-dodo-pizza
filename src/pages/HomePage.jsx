@@ -68,7 +68,7 @@ const HomePage = () => {
     };
 
     setSearchParams(queryString);
-  }, []);
+  }, [sortType, categoryId]);
 
   useEffect(() => {
     if (searchParams.size) {
