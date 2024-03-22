@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import arrow from '../assets/icons/arrow.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSortType } from '../store/slices/filterSlice';
@@ -7,16 +7,30 @@ import { sortTypes } from '../utils/sortTypes';
 const Sort = () => {
   const dispatch = useDispatch();
   const sortType = useSelector((state) => state.filter.sortType);
-
+  const sortRef = useRef();
   const [visibleSelect, setVisibleSelect] = useState(false);
 
   const onClickSort = (type) => {
     dispatch(setSortType(type));
-    setVisibleSelect(!visibleSelect);
+    setVisibleSelect(false);
   };
 
+
+  const clickBody = (event) => {
+    if (!event.composedPath().includes(sortRef.current)) {
+      setVisibleSelect(false);
+    }
+  };
+
+  useEffect(() => {
+    document.body.addEventListener('click', clickBody);
+    return () => {
+      document.body.removeEventListener('click', clickBody);
+    };
+  }, []);
+
   return (
-    <div className="sort">
+    <div className="sort" ref={sortRef}>
       <div className="sort__label">
         <img
           src={arrow}
