@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { calculatePrice } from '../../utils/calculatePrice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../store/slices/cartSlice';
 
 const Pizza = (props) => {
   const dispatch = useDispatch();
   const { id, title, imageUrl, types, sizes, price } = props;
+
   const pizzasTypes = ['thin', 'traditional'];
 
   const [activeSize, setActiveSize] = useState(0);
@@ -18,9 +19,30 @@ const Pizza = (props) => {
     setTotalPrice(calculatedPrice);
   }, [activeSize, activeType]);
 
-  const addItem = ( ) => {
+  const count = useSelector((state) => {
+    const items = state.cart.cart.filter(
+        (item) => item.id === id &&
+      item.size === activeSize &&
+      item.type === activeType,
+    );
+
+    if (items.length > 0) {
+      const initialValue = 0;
+      const sumWithInitial = items.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.count,
+          initialValue,
+      );
+      return sumWithInitial;
+    } else {
+      return 0;
+    }
+  });
+
+  const addItem = () => {
     const item = {
-      id, title, imageUrl,
+      id,
+      title,
+      imageUrl,
       size: activeSize,
       type: activeType,
       price: totalPrice,
@@ -28,7 +50,6 @@ const Pizza = (props) => {
 
     dispatch(addToCart(item));
   };
-
 
   return (
     <div className="pizza-block__wrapper">
@@ -67,7 +88,8 @@ const Pizza = (props) => {
           <div className="pizza-block__price">{totalPrice} $</div>
           <button
             onClick={() => addItem()}
-            className="button button--outline button--add">
+            className="button button--outline button--add"
+          >
             <svg
               width="12"
               height="12"
@@ -86,7 +108,7 @@ const Pizza = (props) => {
               />
             </svg>
             <span>add</span>
-            {/* <i>0</i> */}
+            {count ? <i>{count}</i> : ''}
           </button>
         </div>
       </div>

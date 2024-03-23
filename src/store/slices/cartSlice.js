@@ -27,6 +27,18 @@ export const cartSlice = createSlice({
       state.totalPrice = Math.round(state.totalPrice * 100) / 100;
       state.totalCount++;
     },
+    // getCount(state, action) {
+    //   if (state.cart) {
+    //     const foundItems = state.cart.find(
+    //         (item) => item.id === action.payload.id);
+
+    //     if (foundItems) {
+    //       return foundItems.count;
+    //     }
+    //   }
+
+    //   return 0;
+    // },
     clearCart(state) {
       state.cart = [];
     },
