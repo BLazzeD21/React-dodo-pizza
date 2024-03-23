@@ -1,7 +1,8 @@
 import React from 'react';
 import Circle from './Circle';
 import { useDispatch } from 'react-redux';
-import { addToCart, deleteFromCart, removeFromCart } from '../store/slices/cartSlice';
+import { addToCart, deleteFromCart,
+  removeFromCart } from '../store/slices/cartSlice';
 
 const CartItem = (props) => {
   const dispatch = useDispatch();
@@ -17,16 +18,20 @@ const CartItem = (props) => {
     id, title, imageUrl, size, type, price,
   };
 
-  const removeItem = () => {
-    dispatch(removeFromCart(item));
-  };
-
   const addItem = () => {
     dispatch(addToCart(item));
   };
 
+  const removeItem = () => {
+    if (confirm('Are you sure you want to remove?')) {
+      dispatch(removeFromCart(item));
+    }
+  };
+
   const deleteItem = () => {
-    dispatch(deleteFromCart(item));
+    if (confirm('Are you sure you want to delete?')) {
+      dispatch(deleteFromCart(item));
+    }
   };
 
   return (
