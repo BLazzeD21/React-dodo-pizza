@@ -1,8 +1,8 @@
 import React from 'react';
 
-const CartClear = () => {
+const CartClear = (props) => {
   return (
-    <div className="cart__clear">
+    <button className="cart__clear" {...props}>
       <svg
         width="20"
         height="20"
@@ -49,7 +49,7 @@ const CartClear = () => {
         />
       </svg>
       <span>Clear cart</span>
-    </div>
+    </button>
   );
 };
 

@@ -7,7 +7,7 @@ const Pizza = (props) => {
   const dispatch = useDispatch();
   const { id, title, imageUrl, types, sizes, price } = props;
 
-  const pizzasTypes = ['thin', 'traditional'];
+  const pizzaTypes = ['thin', 'traditional'];
 
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(0);
@@ -20,19 +20,20 @@ const Pizza = (props) => {
   }, [activeSize, activeType]);
 
   const count = useSelector((state) => {
-    const items = state.cart.cart.filter(
-        (item) => item.id === id &&
-      item.size === activeSize &&
-      item.type === activeType,
+    const items = state.cart.items.filter(
+        (item) =>
+          item.id === id &&
+           item.size === activeSize &&
+          item.type === activeType,
     );
 
     if (items.length > 0) {
-      const initialValue = 0;
-      const sumWithInitial = items.reduce(
-          (accumulator, currentValue) => accumulator + currentValue.count,
-          initialValue,
-      );
-      return sumWithInitial;
+      const initialCount = 0;
+      const Count = items.reduce(
+          (accumulator, currentCount) => accumulator + currentCount.count,
+          initialCount);
+
+      return Count;
     } else {
       return 0;
     }
@@ -66,7 +67,7 @@ const Pizza = (props) => {
                   setActiveType(index);
                 }}
               >
-                {pizzasTypes[type]}
+                {pizzaTypes[type]}
               </li>
             ))}
           </ul>
