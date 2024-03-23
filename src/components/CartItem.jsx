@@ -1,23 +1,33 @@
 import React from 'react';
 import Circle from './Circle';
-// import { removeFromCart } from '../store/slices/cartSlice';
-// import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import { addToCart, deleteFromCart, removeFromCart } from '../store/slices/cartSlice';
 
 const CartItem = (props) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const { id, title, type, size, count, price, imageUrl } = props;
 
   const pizzaTypes = ['thin', 'traditional'];
   const pizzaSizes = [25, 30, 35];
 
-  // const removeItem = () => {
-  //   const item = {
-  //     id, title, imageUrl, size, type, price,
-  //   };
+  const totalPrice = Math.round(price * count * 100) / 100;
 
-  //   dispatch(removeFromCart(item));
-  // };
+  const item = {
+    id, title, imageUrl, size, type, price,
+  };
+
+  const removeItem = () => {
+    dispatch(removeFromCart(item));
+  };
+
+  const addItem = () => {
+    dispatch(addToCart(item));
+  };
+
+  const deleteItem = () => {
+    dispatch(deleteFromCart(item));
+  };
 
   return (
     <div className="cart__item">
@@ -34,6 +44,7 @@ const CartItem = (props) => {
         <button
           className="button button--outline
       button--circle cart__item-count-minus"
+          onClick={() => removeItem()}
         >
           <Circle />
         </button>
@@ -41,17 +52,18 @@ const CartItem = (props) => {
         <button
           className="button button--outline
       button--circle cart__item-count-Circle"
+          onClick={() => addItem()}
         >
           <Circle />
         </button>
       </div>
       <div className="cart__item-price">
-        <b>{price} $</b>
+        <b>{totalPrice} $</b>
       </div>
       <div className="cart__item-remove">
         <button
           className="button button--outline button--circle"
-          // onClick={() => removeItem()}
+          onClick={() => deleteItem()}
         >
           <Circle />
         </button>

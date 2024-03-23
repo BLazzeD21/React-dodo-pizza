@@ -6,7 +6,6 @@ const initialState = {
   totalCount: 0,
 };
 
-
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
@@ -32,23 +31,42 @@ export const cartSlice = createSlice({
     },
     clearCart(state) {
       state.items = [];
+      state.totalPrice = 0;
+      state.totalCount = 0;
     },
-    // removeFromCart(state, action) {
-    //   state.items = state.items
-    //       .filter((item) => {
-    //         console.log(item.id, item.size, item.type);
-    //       });
+    removeFromCart(state, action) {
+      const foundItem = state.items
+          .find((item) => item.id === action.payload.id &&
+          item.size === action.payload.size &&
+          item.type === action.payload.type);
 
-    //   console.log(action.payload.id,
-    // action.payload.size, action.payload.type);
-    // },
+      if (foundItem) {
+        foundItem.count--;
+        state.totalPrice -= action.payload.price;
+        state.totalCount--;
+      }
+
+      if (foundItem.count === 0) {
+        state.items = state.items.filter((item) => item !== foundItem);
+      }
+    },
+    deleteFromCart(state, action) {
+      const foundItem = state.items
+          .find((item) => item.id === action.payload.id &&
+          item.size === action.payload.size &&
+          item.type === action.payload.type);
+
+      if (foundItem) {
+        state.totalPrice -= foundItem.price * foundItem.count;
+        state.totalCount -= foundItem.count;
+        state.items = state.items.filter((item) => item !== foundItem);
+      }
+    },
   },
 
 });
 
-// export const { addToCart, clearCart, removeFromCart } = cartSlice.actions;
-
-export const { addToCart, clearCart } = cartSlice.actions;
-
+export const { addToCart, clearCart,
+  removeFromCart, deleteFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;

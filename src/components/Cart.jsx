@@ -34,7 +34,7 @@ const Cart = () => {
             Total pizzas: <b>{totalCount} pc.</b>
           </span>
           <span>
-            Order price: <b>{totalPrice} $</b>
+            Order price: <b>{Math.round(totalPrice * 100) / 100} $</b>
           </span>
         </div>
         <div className="cart__bottom-buttons">

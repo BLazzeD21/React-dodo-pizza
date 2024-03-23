@@ -24,7 +24,7 @@ const Header = () => {
         <Input />
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
-            <span>{totalPrice} $</span>
+            <span>{Math.round(totalPrice * 100) / 100} $</span>
             <div className="button__delimiter"></div>
             <img src={cart} className="basket" width={'22px'} alt="basket" />
             <span>{totalCount}</span>
