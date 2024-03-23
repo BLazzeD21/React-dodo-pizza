@@ -18,27 +18,27 @@ const CartItem = (props) => {
         <p>{type}, {size} cm</p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
           className="button button--outline
       button--circle cart__item-count-minus"
         >
           <Plus />
-        </div>
+        </button>
         <b>{count}</b>
-        <div
+        <button
           className="button button--outline
       button--circle cart__item-count-plus"
         >
           <Plus />
-        </div>
+        </button>
       </div>
       <div className="cart__item-price">
         <b>{price} $</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <button className="button button--outline button--circle">
           <Plus />
-        </div>
+        </button>
       </div>
     </div>
   );

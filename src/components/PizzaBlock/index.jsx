@@ -1,20 +1,39 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { calculatePrice } from '../../utils/calculatePrice';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/slices/cartSlice';
 
 const Pizza = (props) => {
-  const { title, imageUrl, types, sizes, price } = props;
+  const dispatch = useDispatch();
+  const { id, title, imageUrl, types, sizes, price } = props;
   const pizzasTypes = ['thin', 'traditional'];
 
   const [activeSize, setActiveSize] = useState(0);
   const [activeType, setActiveType] = useState(0);
+  const [totalPrice, setTotalPrice] = useState(price);
+
+  useEffect(() => {
+    const calculatedPrice = calculatePrice(price, activeType, activeSize);
+
+    setTotalPrice(calculatedPrice);
+  }, [activeSize, activeType]);
+
+  const addItem = ( ) => {
+    const item = {
+      id, title, imageUrl,
+      size: activeSize,
+      type: activeType,
+      price: totalPrice,
+    };
+
+    dispatch(addToCart(item));
+  };
+
 
   return (
     <div className="pizza-block__wrapper">
       <div className="pizza-block">
-        <img
-          className="pizza-block__image"
-          src={imageUrl}
-          alt="Pizza"
-        />
+        <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
@@ -38,13 +57,17 @@ const Pizza = (props) => {
                 onClick={() => {
                   setActiveSize(index);
                 }}
-              >{size} cm</li>
+              >
+                {size} cm
+              </li>
             ))}
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">from {price} $</div>
-          <button className="button button--outline button--add">
+          <div className="pizza-block__price">{totalPrice} $</div>
+          <button
+            onClick={() => addItem()}
+            className="button button--outline button--add">
             <svg
               width="12"
               height="12"
@@ -63,7 +86,7 @@ const Pizza = (props) => {
               />
             </svg>
             <span>add</span>
-            <i>0</i>
+            {/* <i>0</i> */}
           </button>
         </div>
       </div>
