@@ -117,26 +117,25 @@ const HomePage = () => {
     <PizzaSkeleton key={index} />
   ));
 
-  const nothingFound = itemsPage.length === 0;
-
   let Content;
+  let Buttom;
+
 
   switch (status) {
     case 'error':
-      Content = <ErrorBlock />;
+      Content = '';
+      Buttom = <ErrorBlock />;
       break;
     case 'loading':
       Content = Skeleton;
+      Buttom = '';
       break;
     default:
       Content = itemsPage.length ? itemsPage : '';
+      Buttom = itemsPage.length ? showPages:
+      <SearchEmpty searchQueue={searchQueue}/>;
       break;
   }
-
-  const buttom =
-    status === 'error' ? '' :
-    nothingFound ? <SearchEmpty /> :
-    showPages;
 
   return (
     <Fragment>
@@ -148,7 +147,7 @@ const HomePage = () => {
         <Sort />
       </div>
       <div className="content__items">{Content}</div>
-      {buttom}
+      {Buttom}
     </Fragment>
   );
 };

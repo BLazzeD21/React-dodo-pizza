@@ -5,7 +5,7 @@ import EmptyBlock from './EmptyBlock';
 const ErrorBlock = () => {
   return (
     <EmptyBlock
-      title='Failed to receive products'
+      title='Error receiving data from server'
       image={picture}
     />
   );

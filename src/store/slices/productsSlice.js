@@ -12,7 +12,7 @@ export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
     async (params) => {
       const { sortBy, order, categoryId } = params;
-      const url = new URL(`https://${MOCKAPISECRET}.mocapi.io/api/pizzas`);
+      const url = new URL(`https://${MOCKAPISECRET}.mockapi.io/api/pizzas`);
 
       url.searchParams.append('sortBy', sortBy);
       url.searchParams.append('order', order);
@@ -51,9 +51,9 @@ export const productsSlice = createSlice({
             console.log('success');
             state.status = 'success';
           })
-          .addCase(fetchProducts.rejected, (state, action) => {
+          .addCase(fetchProducts.rejected, (state) => {
             state.products = [];
-            console.log(action);
+            console.log('error');
             state.status = 'error';
           });
     },
