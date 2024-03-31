@@ -1,6 +1,6 @@
-import React, { Fragment, useState, useEffect, useRef } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 
 import Categories from '../components/Categories';
 import PizzaSkeleton from '../components/PizzaBlock/PizzaSkeleton';
@@ -8,17 +8,18 @@ import Pizza from '../components/PizzaBlock';
 import Sort from '../components/Sort';
 import SearchEmpty from '../components/SearchEmpty';
 import Pagination from '../components/Pagination';
+import ErrorBlock from '../components/ErrorBlock';
 
 import paginate from '../utils/pagination';
-
 import { sortTypes } from '../utils/sortTypes';
 
-import { setCategoryId,
+import {
+  setCategoryId,
   setCurrentPage,
-  setFilters } from '../store/slices/filterSlice';
-import { useSearchParams } from 'react-router-dom';
+  setFilters,
+} from '../store/slices/filterSlice';
 
-const MOCKAPISECRET = import.meta.env.VITE_MOCKAPISECRET;
+import { fetchProducts } from '../store/slices/productsSlice';
 
 const PAGE_SIZE = 8;
 
@@ -30,30 +31,20 @@ const HomePage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useDispatch();
 
-  const { categoryId, sortType,
-    searchQueue, currentPage } = useSelector((state) => state.filter);
+  const { categoryId, sortType, searchQueue, currentPage } = useSelector(
+      (state) => state.filter,
+  );
 
-  const [items, setItems] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const { products, status } = useSelector((state) => state.products);
 
   function fetchData() {
-    setIsLoading(true);
-    const url = new URL(`https://${MOCKAPISECRET}.mockapi.io/api/pizzas`);
-
-    url.searchParams.append('sortBy', sortType.sortBy);
-    url.searchParams.append('order', sortType.order);
-    url.searchParams.append('category', categoryId);
-
-    axios({
-      method: 'GET',
-      url: url,
-      headers: {
-        'content-type': 'application/json',
-      },
-    }).then((response) => {
-      setItems(response.data);
-      setIsLoading(false);
-    });
+    dispatch(
+        fetchProducts({
+          sortBy: sortType.sortBy,
+          order: sortType.order,
+          categoryId: categoryId,
+        }),
+    );
   }
 
   useEffect(() => {
@@ -81,8 +72,7 @@ const HomePage = () => {
       const filters = {
         categoryId: params.category,
         sortType: sortTypes.find(function(item) {
-          return item.sortBy === params.sortBy &&
-          item.order === params.order;
+          return item.sortBy === params.sortBy && item.order === params.order;
         }),
       };
 
@@ -100,12 +90,11 @@ const HomePage = () => {
     isSearch.current = false;
   }, [categoryId, sortType]);
 
-
-  const filteredItems = items
-      .filter((pizza) => {
-        return pizza.title.toLowerCase().includes(searchQueue.toLowerCase());
+  const filteredItems = products
+      .filter((product) => {
+        return product.title.toLowerCase().includes(searchQueue.toLowerCase());
       })
-      .map((pizza, index) => <Pizza key={index} {...pizza} />);
+      .map((product, index) => <Pizza key={index} {...product} />);
 
   const itemsCount = filteredItems.length;
 
@@ -130,8 +119,24 @@ const HomePage = () => {
 
   const nothingFound = itemsPage.length === 0;
 
-  const Content = isLoading ? Skeleton :
-    (itemsPage.length) ? itemsPage : '';
+  let Content;
+
+  switch (status) {
+    case 'error':
+      Content = <ErrorBlock />;
+      break;
+    case 'loading':
+      Content = Skeleton;
+      break;
+    default:
+      Content = itemsPage.length ? itemsPage : '';
+      break;
+  }
+
+  const buttom =
+    status === 'error' ? '' :
+    nothingFound ? <SearchEmpty /> :
+    showPages;
 
   return (
     <Fragment>
@@ -142,10 +147,8 @@ const HomePage = () => {
         />
         <Sort />
       </div>
-      <div className="content__items">
-        {Content}
-      </div>
-      {nothingFound ? <SearchEmpty /> : showPages}
+      <div className="content__items">{Content}</div>
+      {buttom}
     </Fragment>
   );
 };

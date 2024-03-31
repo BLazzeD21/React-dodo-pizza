@@ -6,13 +6,13 @@
   align-items: center;
   &__title {
     font-weight: 400;
-    font-size: 60px;
+    font-size: 50px;
     @media screen and (max-width: 800px) {
-      font-size: 30px;
+      font-size: 25px;
     }
   }
   &__img {
-    width: 20%;
+    width: 40%;
     @media screen and (max-width: 800px) {
       width: 100%;
     }
