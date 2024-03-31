@@ -86,7 +86,7 @@ const Pizza = (props) => {
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">{totalPrice} $</div>
+          <div className="pizza-block__price">Price: {totalPrice} $</div>
           <button
             onClick={() => addItem()}
             className="button button--outline button--add"
