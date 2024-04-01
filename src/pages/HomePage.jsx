@@ -14,12 +14,13 @@ import paginate from '../utils/pagination';
 import { sortTypes } from '../utils/sortTypes';
 
 import {
+  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
 } from '../store/slices/filterSlice';
 
-import { fetchProducts } from '../store/slices/productsSlice';
+import { fetchProducts, selectProducts } from '../store/slices/productsSlice';
 
 const PAGE_SIZE = 8;
 
@@ -32,10 +33,10 @@ const HomePage = () => {
   const dispatch = useDispatch();
 
   const { categoryId, sortType, searchQueue, currentPage } = useSelector(
-      (state) => state.filter,
+      selectFilter,
   );
 
-  const { products, status } = useSelector((state) => state.products);
+  const { products, status } = useSelector(selectProducts);
 
   function fetchData() {
     dispatch(

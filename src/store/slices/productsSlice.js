@@ -45,21 +45,20 @@ export const productsSlice = createSlice({
       builder
           .addCase(fetchProducts.pending, (state) => {
             state.products = [];
-            console.log('loading');
             state.status = 'loading';
           })
           .addCase(fetchProducts.fulfilled, (state, action) => {
             state.products = action.payload;
-            console.log('success');
             state.status = 'success';
           })
           .addCase(fetchProducts.rejected, (state) => {
             state.products = [];
-            console.log('error');
             state.status = 'error';
           });
     },
 });
+
+export const selectProducts = (state) => state.products;
 
 export const { setProducts } = productsSlice.actions;
 

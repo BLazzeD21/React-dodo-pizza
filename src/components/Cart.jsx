@@ -6,14 +6,14 @@ import cartImage from '../assets/icons/cartBlack.svg';
 import CartClear from './CartClear';
 import CartItem from './CartItem';
 import { useSelector, useDispatch } from 'react-redux';
-import { clearCart } from '../store/slices/cartSlice';
+import { clearCart, selectCart } from '../store/slices/cartSlice';
 import jingle from '../assets/sounds/jingle.wav';
 
 const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { items, totalCount, totalPrice } = useSelector((state) => state.cart);
+  const { items, totalCount, totalPrice } = useSelector(selectCart);
 
   const [playSound] = useSound(jingle);
 
