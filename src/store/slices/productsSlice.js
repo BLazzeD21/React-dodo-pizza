@@ -10,7 +10,7 @@ const initialState = {
 
 export const fetchProducts = createAsyncThunk(
     'products/fetchProducts',
-    async (params) => {
+    async (params, thunkAPI) => {
       const { sortBy, order, categoryId } = params;
       const url = new URL(`https://${MOCKAPISECRET}.mockapi.io/api/pizzas`);
 
@@ -25,6 +25,8 @@ export const fetchProducts = createAsyncThunk(
           'content-type': 'application/json',
         },
       });
+
+      if (!data) return thunkAPI.rejectWithValue('Array is empty');
 
       return data;
     },
