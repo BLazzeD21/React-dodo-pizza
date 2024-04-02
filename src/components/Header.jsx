@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import logo from '../assets/icons/dodoPizza.svg';
@@ -9,6 +9,8 @@ import { selectCart } from '../store/slices/cartSlice';
 
 const Header = () => {
   const { totalCount, totalPrice } = useSelector(selectCart);
+
+  const location = useLocation();
 
   return (
     <div className="header">
@@ -22,15 +24,26 @@ const Header = () => {
             </div>
           </div>
         </Link>
-        <Input />
-        <div className="header__cart">
-          <Link to="/cart" className="button button--cart">
-            <span>{Math.round(totalPrice * 100) / 100} $</span>
-            <div className="button__delimiter"></div>
-            <img src={cart} className="basket" width={'22px'} alt="basket" />
-            <span>{totalCount}</span>
-          </Link>
-        </div>
+        {location.pathname == '/cart' ? (
+          ''
+        ) : (
+          <Fragment>
+            <Input />
+            <div className="header__cart">
+              <Link to="/cart" className="button button--cart">
+                <span>{Math.round(totalPrice * 100) / 100} $</span>
+                <div className="button__delimiter"></div>
+                <img
+                  src={cart}
+                  className="basket"
+                  width={'22px'}
+                  alt="basket"
+                />
+                <span>{totalCount}</span>
+              </Link>
+            </div>
+          </Fragment>
+        )}
       </div>
     </div>
   );
