@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
         order?: string;
       } = {};
 
-      searchParams.forEach((value, key) => {
+      searchParams.forEach((value: string, key: string) => {
         params[key as keyof typeof params] = value;
       });
 
