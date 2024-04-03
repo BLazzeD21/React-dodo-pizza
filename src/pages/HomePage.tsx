@@ -64,14 +64,14 @@ const HomePage: React.FC = () => {
   useEffect(() => {
     if (searchParams.size) {
       const params: {
-        category?: string,
-        sortBy?: string,
-        order?: string 
-    } = {};
-    
-    searchParams.forEach((value, key) => {
+        category?: string;
+        sortBy?: string;
+        order?: string;
+      } = {};
+
+      searchParams.forEach((value, key) => {
         params[key as keyof typeof params] = value;
-    });
+      });
 
       const filters = {
         categoryId: params.category,
@@ -117,7 +117,11 @@ const HomePage: React.FC = () => {
       <></>
     );
 
-  const itemsPage: JSX.Element[] = paginate(filteredItems, PAGE_SIZE, currentPage + 1);
+  const itemsPage: JSX.Element[] = paginate(
+    filteredItems,
+    PAGE_SIZE,
+    currentPage + 1
+  );
 
   const Skeleton: JSX.Element[] = [...new Array(8)].map((_, index) => (
     <PizzaSkeleton key={index} />
@@ -125,7 +129,7 @@ const HomePage: React.FC = () => {
 
   let Content: JSX.Element | JSX.Element[];
   let Buttom: JSX.Element;
-  
+
   switch (status) {
     case "error":
       Content = <></>;
