@@ -1,4 +1,11 @@
-const Categories = ({ selectedCategory, setSelectedCategory }) => {
+import React from "react";
+
+type CategoriesProps = {
+  selectedCategory: number;
+  setSelectedCategory: (id: number) => void;
+}
+
+const Categories: React.FC<CategoriesProps> = ({ selectedCategory, setSelectedCategory }) => {
   const categories = [
     'All', 'Meet', 'Vegetarian', 'Grill', 'Spicy', 'Pepperoni',
   ];

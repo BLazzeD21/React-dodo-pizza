@@ -4,31 +4,41 @@ import { useDispatch } from 'react-redux';
 import { addToCart, deleteFromCart,
   removeFromCart } from '../store/slices/cartSlice';
 
-const CartItem = (props) => {
+type CartItemProps = {
+  id: number;
+  title: string;
+  type: number;
+  size: number;
+  count: number;
+  price: number;
+  imageUrl: string;
+}
+
+const CartItem: React.FC<CartItemProps> = (props) => {
   const dispatch = useDispatch();
 
   const { id, title, type, size, count, price, imageUrl } = props;
 
-  const pizzaTypes = ['thin', 'traditional'];
-  const pizzaSizes = [25, 30, 35];
+  const pizzaTypes: string[] = ['thin', 'traditional'];
+  const pizzaSizes: number[] = [25, 30, 35];
 
-  const totalPrice = Math.round(price * count * 100) / 100;
+  const totalPrice: number = Math.round(price * count * 100) / 100;
 
   const item = {
     id, title, imageUrl, size, type, price,
   };
 
-  const addItem = () => {
+  const addItem = (): void => {
     dispatch(addToCart(item));
   };
 
-  const removeItem = () => {
+  const removeItem = (): void => {
     if (confirm('Are you sure you want to remove?')) {
       dispatch(removeFromCart(item));
     }
   };
 
-  const deleteItem = () => {
+  const deleteItem = (): void => {
     if (confirm('Are you sure you want to delete?')) {
       dispatch(deleteFromCart(item));
     }

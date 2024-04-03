@@ -4,28 +4,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectSortType, setSortType } from '../store/slices/filterSlice';
 import { sortTypes } from '../utils/sortTypes';
 
-const Sort = () => {
+const Sort: React.FC = () => {
   const dispatch = useDispatch();
   const sortType = useSelector(selectSortType);
-  const sortRef = useRef();
-  const [visibleSelect, setVisibleSelect] = useState(false);
 
-  const onClickSort = (type) => {
+  const sortRef = useRef<HTMLDivElement>(null);
+  const [visibleSelect, setVisibleSelect] = useState<boolean>(false);
+
+  const onClickSort = (type: SortItem): void => {
     dispatch(setSortType(type));
     setVisibleSelect(false);
   };
 
 
-  const clickBody = (event) => {
-    if (!event.composedPath().includes(sortRef.current)) {
+  const handleClickOutside = (event: MouseEvent): void => {
+    if (sortRef.current && !sortRef.current.contains(event.target as Node)) {
       setVisibleSelect(false);
     }
   };
-
+  
   useEffect(() => {
-    document.body.addEventListener('click', clickBody);
+    document.body.addEventListener('click', handleClickOutside);
     return () => {
-      document.body.removeEventListener('click', clickBody);
+      document.body.removeEventListener('click', handleClickOutside);
     };
   }, []);
 

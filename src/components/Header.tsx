@@ -7,7 +7,7 @@ import cart from '../assets/icons/cartWhite.svg';
 import Input from './Search';
 import { selectCart } from '../store/slices/cartSlice';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { totalCount, totalPrice } = useSelector(selectCart);
 
   const location = useLocation();

@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { clearCart, selectCart } from '../store/slices/cartSlice';
 import jingle from '../assets/sounds/jingle.wav';
 
-const Cart = () => {
+const Cart: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -17,13 +17,13 @@ const Cart = () => {
 
   const [playSound] = useSound(jingle);
 
-  const emptyCart = () => {
+  const emptyCart = (): void => {
     if (confirm('Are you sure you want to empty the cart?')) {
       dispatch(clearCart());
     }
   };
 
-  const payOrder = () => {
+  const payOrder = (): void => {
     dispatch(clearCart());
     alert('Your order has been placed, please wait.');
     playSound();
@@ -40,7 +40,7 @@ const Cart = () => {
         <CartClear onClick={() => emptyCart()}/>
       </div>
       <div className="cart__items">
-        {items.map((item) => (
+        {items.map((item: any) => (
           <CartItem
             key={`${item.id}_${item.size}_${item.type}`}
             {...item}

@@ -1,11 +1,17 @@
 import React from 'react';
 
-const Pagination = ({ page, setPage, pages }) => {
-  const startArrowHandle = () => {
+type PaginationProps = {
+  page: number;
+  setPage: (page: number) => void;
+  pages: number;
+}
+
+const Pagination: React.FC<PaginationProps> = ({ page, setPage, pages }) => {
+  const startArrowHandle = (): void => {
     if (page !== 0) setPage(page - 1);
   };
 
-  const endArrowHandle = () => {
+  const endArrowHandle = ():void => {
     if (page !== pages - 1) setPage(page + 1);
   };
 

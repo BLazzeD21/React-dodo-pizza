@@ -1,6 +1,10 @@
 import React from 'react';
 
-const CartClear = (props) => {
+type CartClearProps = {
+  onClick: () => void;
+}
+
+const CartClear: React.FC<CartClearProps> = (props) => {
   return (
     <button className="cart__clear" {...props}>
       <svg

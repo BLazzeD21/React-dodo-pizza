@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-const Plus = () => {
+const Plus: React.FC = () => {
   return (
     <svg
       width="10"

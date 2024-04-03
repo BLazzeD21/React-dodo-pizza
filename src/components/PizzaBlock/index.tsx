@@ -3,25 +3,34 @@ import { calculatePrice } from '../../utils/calculatePrice';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../../store/slices/cartSlice';
 
-const Pizza = (props) => {
+type PizzaProps = {
+  id: number;
+  title: string;
+  imageUrl: string;
+  types: number[];
+  sizes: number[];
+  price: number;
+}
+
+const pizzaTypes: string[] = ['thin', 'traditional'];
+
+const Pizza: React.FC<PizzaProps> = (props) => {
   const dispatch = useDispatch();
   const { id, title, imageUrl, types, sizes, price } = props;
 
-  const pizzaTypes = ['thin', 'traditional'];
-
-  const [activeSize, setActiveSize] = useState(0);
-  const [activeType, setActiveType] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(price);
+  const [activeSize, setActiveSize] = useState<number>(0);
+  const [activeType, setActiveType] = useState<number>(0);
+  const [totalPrice, setTotalPrice] = useState<number>(price);
 
   useEffect(() => {
-    const calculatedPrice = calculatePrice(price, activeType, activeSize);
+    const calculatedPrice: number = calculatePrice(price, activeType, activeSize);
 
     setTotalPrice(calculatedPrice);
   }, [activeSize, activeType]);
 
   const count = useSelector((state) => {
     const items = state.cart.items.filter(
-        (item) =>
+        (item: any) =>
           item.id === id &&
            item.size === activeSize &&
           item.type === activeType,
@@ -30,7 +39,7 @@ const Pizza = (props) => {
     if (items.length > 0) {
       const initialCount = 0;
       const Count = items.reduce(
-          (accumulator, currentCount) => accumulator + currentCount.count,
+          (accumulator: number, currentCount: number) => accumulator + currentCount.count,
           initialCount);
 
       return Count;
