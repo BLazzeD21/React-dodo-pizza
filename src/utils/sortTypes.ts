@@ -1,4 +1,4 @@
-export const sortTypes: SortItem[] = [
+export const sortTypes: sort[] = [
   { name: 'popularity (asc)', sortBy: 'rating', order: 'asc' },
   { name: 'popularity (desc)', sortBy: 'rating', order: 'desc' },
   { name: 'price (asc)', sortBy: 'price', order: 'asc' },

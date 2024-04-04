@@ -11,7 +11,7 @@ const Sort: React.FC = () => {
   const sortRef = useRef<HTMLDivElement>(null);
   const [visibleSelect, setVisibleSelect] = useState<boolean>(false);
 
-  const onClickSort = (type: SortItem): void => {
+  const onClickSort = (type: sort): void => {
     dispatch(setSortType(type));
     setVisibleSelect(false);
   };

@@ -4,28 +4,19 @@ import { useDispatch } from 'react-redux';
 import { addToCart, deleteFromCart,
   removeFromCart } from '../store/slices/cartSlice';
 
-type CartItemProps = {
-  id: number;
-  title: string;
-  type: number;
-  size: number;
-  count: number;
-  price: number;
-  imageUrl: string;
-}
 
-const CartItem: React.FC<CartItemProps> = (props) => {
+const CartItem: React.FC<CartItem> = (props) => {
   const dispatch = useDispatch();
 
   const { id, title, type, size, count, price, imageUrl } = props;
 
   const pizzaTypes: string[] = ['thin', 'traditional'];
   const pizzaSizes: number[] = [25, 30, 35];
-
-  const totalPrice: number = Math.round(price * count * 100) / 100;
+ 
+  const totalPrice: number = count ? Math.round(price * count * 100) / 100 : 0;
 
   const item = {
-    id, title, imageUrl, size, type, price,
+    id, title, imageUrl, size, type, price, count
   };
 
   const addItem = (): void => {

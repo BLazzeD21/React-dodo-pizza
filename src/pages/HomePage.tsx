@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../store/store";
 import Categories from "../components/Categories";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pizza from "../components/PizzaBlock";
@@ -22,6 +22,8 @@ import {
 
 import { fetchProducts, selectProducts } from "../store/slices/productsSlice";
 
+import { Status } from "../store/slices/productsSlice";
+
 const PAGE_SIZE: number = 8;
 
 const HomePage: React.FC = () => {
@@ -30,7 +32,7 @@ const HomePage: React.FC = () => {
   const isSearch = useRef<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { categoryId, sortType, searchQueue, currentPage } =
     useSelector(selectFilter);
@@ -42,7 +44,7 @@ const HomePage: React.FC = () => {
       fetchProducts({
         sortBy: sortType.sortBy,
         order: sortType.order,
-        categoryId: categoryId,
+        categoryId: String(categoryId),
       })
     );
   }
@@ -53,7 +55,7 @@ const HomePage: React.FC = () => {
 
   useEffect(() => {
     const queryParams = {
-      category: categoryId,
+      category: String(categoryId),
       sortBy: sortType.sortBy,
       order: sortType.order,
     };
@@ -73,11 +75,15 @@ const HomePage: React.FC = () => {
         params[key as keyof typeof params] = value;
       });
 
-      const filters = {
-        categoryId: params.category,
+      const filters: filter = {
+        categoryId: Number(params.category),
         sortType: sortTypes.find(function (item) {
           return item.sortBy === params.sortBy && item.order === params.order;
-        }),
+        }) || {
+          name: "popularity (asc)",
+          sortBy: "rating",
+          order: "asc",
+        },
       };
 
       dispatch(setFilters(filters));
@@ -131,11 +137,11 @@ const HomePage: React.FC = () => {
   let Buttom: JSX.Element;
 
   switch (status) {
-    case "error":
+    case Status.REJECTED:
       Content = <></>;
       Buttom = <ErrorBlock />;
       break;
-    case "loading":
+    case Status.PENDING:
       Content = Skeleton;
       Buttom = <></>;
       break;

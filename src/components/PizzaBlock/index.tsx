@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { calculatePrice } from '../../utils/calculatePrice';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../../store/slices/cartSlice';
+import React, { useEffect, useState } from "react";
+import { calculatePrice } from "../../utils/calculatePrice";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../store/slices/cartSlice";
+import { RootState } from "../../store/store";
 
 type PizzaProps = {
   id: number;
@@ -10,9 +11,9 @@ type PizzaProps = {
   types: number[];
   sizes: number[];
   price: number;
-}
+};
 
-const pizzaTypes: string[] = ['thin', 'traditional'];
+const pizzaTypes: string[] = ["thin", "traditional"];
 
 const Pizza: React.FC<PizzaProps> = (props) => {
   const dispatch = useDispatch();
@@ -23,24 +24,32 @@ const Pizza: React.FC<PizzaProps> = (props) => {
   const [totalPrice, setTotalPrice] = useState<number>(price);
 
   useEffect(() => {
-    const calculatedPrice: number = calculatePrice(price, activeType, activeSize);
+    const calculatedPrice: number = calculatePrice(
+      price,
+      activeType,
+      activeSize
+    );
 
     setTotalPrice(calculatedPrice);
   }, [activeSize, activeType]);
 
-  const count = useSelector((state) => {
+  const count = useSelector((state: RootState) => {
     const items = state.cart.items.filter(
-        (item: any) =>
-          item.id === id &&
-           item.size === activeSize &&
-          item.type === activeType,
+      (item: any) =>
+        item.id === id && item.size === activeSize && item.type === activeType
     );
 
     if (items.length > 0) {
-      const initialCount = 0;
+      const initialCount: number = 0;
+
       const Count = items.reduce(
-          (accumulator: number, currentCount: number) => accumulator + currentCount.count,
-          initialCount);
+        (accumulator: number, currentItem: CartItem) => {
+          if (currentItem.count) {
+            return accumulator + currentItem.count;
+          } else return 0;
+        },
+        initialCount
+      );
 
       return Count;
     } else {
@@ -49,7 +58,7 @@ const Pizza: React.FC<PizzaProps> = (props) => {
   });
 
   const addItem = () => {
-    const item = {
+    const item: CartItem = {
       id,
       title,
       imageUrl,
@@ -71,7 +80,7 @@ const Pizza: React.FC<PizzaProps> = (props) => {
             {types.map((type, index) => (
               <li
                 key={type}
-                className={activeType === index ? 'active' : ''}
+                className={activeType === index ? "active" : ""}
                 onClick={() => {
                   setActiveType(index);
                 }}
@@ -84,7 +93,7 @@ const Pizza: React.FC<PizzaProps> = (props) => {
             {sizes.map((size, index) => (
               <li
                 key={index}
-                className={activeSize === index ? 'active' : ''}
+                className={activeSize === index ? "active" : ""}
                 onClick={() => {
                   setActiveSize(index);
                 }}
@@ -118,7 +127,7 @@ const Pizza: React.FC<PizzaProps> = (props) => {
               />
             </svg>
             <span>add</span>
-            {count ? <i>{count}</i> : ''}
+            {count ? <i>{count}</i> : ""}
           </button>
         </div>
       </div>
