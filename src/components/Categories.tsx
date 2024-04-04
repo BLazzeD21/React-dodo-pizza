@@ -1,11 +1,11 @@
-import React from "react";
+import React, { memo } from "react";
 
 type CategoriesProps = {
   selectedCategory: number;
   setSelectedCategory: (id: number) => void;
 }
 
-const Categories: React.FC<CategoriesProps> = ({ selectedCategory, setSelectedCategory }) => {
+const Categories: React.FC<CategoriesProps> = memo(({ selectedCategory, setSelectedCategory }) => {
   const categories = [
     'All', 'Meet', 'Vegetarian', 'Grill', 'Spicy', 'Pepperoni',
   ];
@@ -29,6 +29,6 @@ const Categories: React.FC<CategoriesProps> = ({ selectedCategory, setSelectedCa
       </ul>
     </div>
   );
-};
+})
 
 export default Categories;

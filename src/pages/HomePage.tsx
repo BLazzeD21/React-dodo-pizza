@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef } from "react";
+import React, { Fragment, useCallback, useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
@@ -39,6 +39,9 @@ const HomePage: React.FC = () => {
 
   const { products, status } = useSelector(selectProducts);
 
+  const setSelectedCategory = useCallback((id: number) => dispatch(setCategoryId(id)), []);
+  const setPage = useCallback((page: number) => dispatch(setCurrentPage(page)), []);
+  
   function fetchData(): void {
     dispatch(
       fetchProducts({
@@ -117,7 +120,7 @@ const HomePage: React.FC = () => {
       <Pagination
         pages={pages}
         page={currentPage}
-        setPage={(page) => dispatch(setCurrentPage(page))}
+        setPage={setPage}
       />
     ) : (
       <></>
@@ -160,7 +163,7 @@ const HomePage: React.FC = () => {
       <div className="content__top">
         <Categories
           selectedCategory={categoryId}
-          setSelectedCategory={(id) => dispatch(setCategoryId(id))}
+          setSelectedCategory={setSelectedCategory}
         />
         <Sort />
       </div>

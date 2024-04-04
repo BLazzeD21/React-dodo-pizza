@@ -1,9 +1,9 @@
-import React, { useRef, useState, useCallback } from "react";
+import React, { useRef, useState, useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchQueue } from "../store/slices/filterSlice";
 import debounce from "lodash.debounce";
 
-const Search = () => {
+const Search = memo(() => {
   const dispatch = useDispatch();
 
   const [value, setValue] = useState<string>("");
@@ -142,6 +142,6 @@ const Search = () => {
       </svg>
     </div>
   );
-};
+})
 
 export default Search;
