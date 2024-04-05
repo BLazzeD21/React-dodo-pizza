@@ -1,6 +1,7 @@
 import React from "react";
-import Circle from "../Circle";
 import { useDispatch } from "react-redux";
+
+import Circle from "../Circle";
 
 import {
   addToCart,

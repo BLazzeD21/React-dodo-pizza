@@ -1,5 +1,6 @@
-import React from 'react';
-import Loader from './Loader.jsx';
+import React from "react";
+
+import Loader from "./Loader.jsx";
 
 const Loading: React.FC = () => {
   return (

@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { calculatePrice } from "../../utils/calculatePrice";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+
+import { calculatePrice } from "../../utils/calculatePrice";
+
 import { addToCart } from "../../store/cart/slice";
 import { RootState } from "../../store/store";
 
@@ -19,11 +21,11 @@ const Pizza: React.FC<PizzaProps> = (props) => {
   const dispatch = useDispatch();
   const { id, title, imageUrl, types, sizes, price } = props;
 
-  const [activeSize, setActiveSize] = useState<number>(0);
-  const [activeType, setActiveType] = useState<number>(0);
-  const [totalPrice, setTotalPrice] = useState<number>(price);
+  const [activeSize, setActiveSize] = React.useState<number>(0);
+  const [activeType, setActiveType] = React.useState<number>(0);
+  const [totalPrice, setTotalPrice] = React.useState<number>(price);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const calculatedPrice: number = calculatePrice(
       price,
       activeType,

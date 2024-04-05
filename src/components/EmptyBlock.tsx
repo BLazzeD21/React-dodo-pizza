@@ -1,6 +1,7 @@
 import React from "react";
-import lineLogo from "../assets/images/dodoPizzaLine.svg";
 import { Link } from "react-router-dom";
+
+import lineLogo from "../assets/images/dodoPizzaLine.svg";
 
 type EmptyBlockProps = {
   title: string;

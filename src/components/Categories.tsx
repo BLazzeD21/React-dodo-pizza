@@ -1,34 +1,39 @@
-import React, { memo } from "react";
+import React from "react";
 
 type CategoriesProps = {
   selectedCategory: number;
   setSelectedCategory: (id: number) => void;
-}
+};
 
-const Categories: React.FC<CategoriesProps> = memo(({ selectedCategory, setSelectedCategory }) => {
-  const categories = [
-    'All', 'Meet', 'Vegetarian', 'Grill', 'Spicy', 'Pepperoni',
-  ];
+const Categories: React.FC<CategoriesProps> = React.memo(
+  ({ selectedCategory, setSelectedCategory }) => {
+    const categories = [
+      "All",
+      "Meet",
+      "Vegetarian",
+      "Grill",
+      "Spicy",
+      "Pepperoni",
+    ];
 
-  return (
-    <div className="categories">
-      <ul>
-        {
-          categories.map((category, index) => {
+    return (
+      <div className="categories">
+        <ul>
+          {categories.map((category, index) => {
             return (
               <li
                 key={index}
-                className={selectedCategory === index ? 'active' : ''}
+                className={selectedCategory === index ? "active" : ""}
                 onClick={() => setSelectedCategory(index)}
               >
                 {category}
               </li>
             );
-          })
-        }
-      </ul>
-    </div>
-  );
-})
+          })}
+        </ul>
+      </div>
+    );
+  }
+);
 
 export default Categories;

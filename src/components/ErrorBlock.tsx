@@ -1,6 +1,8 @@
 import React from "react";
-import picture from "../assets/images/dodoPlanet.svg";
+
 import EmptyBlock from "./EmptyBlock";
+
+import picture from "../assets/images/dodoPlanet.svg";
 
 const ErrorBlock: React.FC = () => {
   return (

@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { setSearchQueue } from "../../store/filter/slice";
 import debounce from "lodash.debounce";
+
+import { setSearchQueue } from "../../store/filter/slice";
 
 const Search = React.memo(() => {
   const dispatch = useDispatch();
@@ -33,8 +34,6 @@ const Search = React.memo(() => {
       searchInput.current?.blur();
     }
   };
-
-
 
   return (
     <div className="input__wrapper">
@@ -142,6 +141,6 @@ const Search = React.memo(() => {
       </svg>
     </div>
   );
-})
+});
 
 export default Search;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../store/store";
+
 import Categories from "../components/Categories";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pizza from "../components/PizzaBlock";
@@ -13,6 +13,7 @@ import ErrorBlock from "../components/ErrorBlock";
 import paginate from "../utils/pagination";
 import { sortTypes } from "../utils/sortTypes";
 
+import { useAppDispatch } from "../store/store";
 import {
   setCategoryId,
   setCurrentPage,
@@ -20,9 +21,7 @@ import {
 } from "../store/filter/slice";
 import { selectFilter } from "../store/filter/selectors";
 import { fetchProducts } from "../store/products/productsAPI";
-
 import { selectProducts } from "../store/products/selectors";
-
 import { Status } from "../store/products/types";
 
 const PAGE_SIZE: number = 8;
@@ -130,7 +129,10 @@ const HomePage: React.FC = () => {
 
   const itemsCount = React.useMemo(() => filteredItems.length, [filteredItems]);
 
-  const pages = React.useMemo(() => Math.ceil(itemsCount / PAGE_SIZE), [itemsCount]);
+  const pages = React.useMemo(
+    () => Math.ceil(itemsCount / PAGE_SIZE),
+    [itemsCount]
+  );
 
   const showPages: JSX.Element =
     pages - 1 ? (

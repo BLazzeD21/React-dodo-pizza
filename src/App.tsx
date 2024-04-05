@@ -1,35 +1,35 @@
-import { lazy, Suspense } from 'react';
+import React from "react";
 import {
   Route,
   RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-} from 'react-router-dom';
-import Loading from './components/Loading';
+} from "react-router-dom";
 
-import './styles/styles.scss';
+import Loading from "./components/Loading";
 
+const CartPage = React.lazy(() => import("./pages/CartPage"));
+const HomePage = React.lazy(() => import("./pages/HomePage"));
+const Layout = React.lazy(() => import("./components/Layout/Layout"));
+const NotFoundPage = React.lazy(() => import("./pages/NotFound"));
 
-const CartPage = lazy(() => import('./pages/CartPage'));
-const HomePage = lazy(() => import('./pages/HomePage'));
-const Layout = lazy(() => import('./components/Layout/Layout'));
-const NotFoundPage = lazy(() => import('./pages/NotFound'));
-
+import "./styles/styles.scss";
 
 const App = () => {
   const router = createBrowserRouter(
-      createRoutesFromElements(
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="/cart" element={<CartPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Route>),
+    createRoutesFromElements(
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    )
   );
 
   return (
-    <Suspense fallback={<Loading />}>
+    <React.Suspense fallback={<Loading />}>
       <RouterProvider router={router} />
-    </Suspense>
+    </React.Suspense>
   );
 };
 

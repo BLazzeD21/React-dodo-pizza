@@ -1,49 +1,51 @@
-import React, { Fragment, useEffect, useRef } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { setSearchQueue } from '../store/filter/slice';
+import React from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import logo from '../assets/icons/dodoPizza.svg';
-import cart from '../assets/icons/cartWhite.svg';
-import Input from './Search/Search';
-import { selectCart } from '../store/cart/selectors';
+import Input from "./Search/Search";
+
+import { setSearchQueue } from "../store/filter/slice";
+import { selectCart } from "../store/cart/selectors";
+
+import logo from "../assets/icons/dodoPizza.svg";
+import cart from "../assets/icons/cartWhite.svg";
 
 const Header: React.FC = () => {
   const { items, totalCount, totalPrice } = useSelector(selectCart);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const isMounted = useRef<boolean>(false);
+  const isMounted = React.useRef<boolean>(false);
   const location = useLocation();
 
   const handleCartOnClick = () => {
-    dispatch(setSearchQueue(''))
-  }
+    dispatch(setSearchQueue(""));
+  };
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isMounted.current) {
       const json = JSON.stringify(items);
-      localStorage.setItem('cartItems', json);
+      localStorage.setItem("cartItems", json);
     }
 
     isMounted.current = true;
-  }, [items])
+  }, [items]);
 
   return (
     <div className="header">
       <div className="container">
         <Link to="/">
           <div className="header__logo">
-            <img src={logo} width={'70px'} alt="dodo-pizza" />
+            <img src={logo} width={"70px"} alt="dodo-pizza" />
             <div>
               <h1>Dodo Pizza</h1>
               <p>Fast free delivery to home and office</p>
             </div>
           </div>
         </Link>
-        {location.pathname == '/cart' ? (
-          ''
+        {location.pathname == "/cart" ? (
+          ""
         ) : (
-          <Fragment>
+          <React.Fragment>
             <Input />
             <div className="header__cart" onClick={handleCartOnClick}>
               <Link to="/cart" className="button button--cart">
@@ -52,13 +54,13 @@ const Header: React.FC = () => {
                 <img
                   src={cart}
                   className="basket"
-                  width={'22px'}
+                  width={"22px"}
                   alt="basket"
                 />
                 <span>{totalCount}</span>
               </Link>
             </div>
-          </Fragment>
+          </React.Fragment>
         )}
       </div>
     </div>

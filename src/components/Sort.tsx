@@ -1,10 +1,11 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { sortTypes } from "../utils/sortTypes";
+
 import { selectSortType } from "../store/filter/selectors";
 import { setSortType } from "../store/filter/slice";
 
-import { sortTypes } from "../utils/sortTypes";
 import arrow from "../assets/icons/arrow.svg";
 
 const Sort: React.FC = React.memo(() => {

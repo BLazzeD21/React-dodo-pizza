@@ -1,6 +1,6 @@
 import React from "react";
 
-const Plus: React.FC = () => {
+const Circle: React.FC = () => {
   return (
     <svg
       width="10"
@@ -31,4 +31,4 @@ const Plus: React.FC = () => {
   );
 };
 
-export default Plus;
+export default Circle;
