@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-} from "react";
+import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
@@ -20,22 +14,23 @@ import paginate from "../utils/pagination";
 import { sortTypes } from "../utils/sortTypes";
 
 import {
-  selectFilter,
   setCategoryId,
   setCurrentPage,
   setFilters,
-} from "../store/slices/filterSlice";
+} from "../store/filter/slice";
+import { selectFilter } from "../store/filter/selectors";
+import { fetchProducts } from "../store/products/productsAPI";
 
-import { fetchProducts, selectProducts } from "../store/slices/productsSlice";
+import { selectProducts } from "../store/products/selectors";
 
-import { Status } from "../store/slices/productsSlice";
+import { Status } from "../store/products/types";
 
 const PAGE_SIZE: number = 8;
 
 const HomePage: React.FC = () => {
   window.scrollTo(0, 0);
-  const isMounted = useRef<boolean>(false);
-  const isSearch = useRef<boolean>(false);
+  const isMounted = React.useRef<boolean>(false);
+  const isSearch = React.useRef<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
@@ -45,16 +40,16 @@ const HomePage: React.FC = () => {
 
   const { products, status } = useSelector(selectProducts);
 
-  const setSelectedCategory = useCallback(
+  const setSelectedCategory = React.useCallback(
     (id: number) => dispatch(setCategoryId(id)),
     []
   );
-  const setPage = useCallback(
+  const setPage = React.useCallback(
     (page: number) => dispatch(setCurrentPage(page)),
     []
   );
 
-  const fetchData = useCallback(() => {
+  const fetchData = React.useCallback(() => {
     dispatch(
       fetchProducts({
         sortBy: sortType.sortBy,
@@ -64,11 +59,11 @@ const HomePage: React.FC = () => {
     );
   }, [dispatch, sortType, categoryId]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(setCurrentPage(0));
   }, [searchQueue, categoryId, sortType]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isMounted.current) {
       const queryParams = {
         category: String(categoryId),
@@ -82,7 +77,7 @@ const HomePage: React.FC = () => {
     isMounted.current = true;
   }, [sortType, categoryId]);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (searchParams.size) {
       const params: {
         category?: string;
@@ -111,7 +106,7 @@ const HomePage: React.FC = () => {
     }
   }, []);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!isSearch.current) {
       fetchData();
     }
@@ -119,7 +114,7 @@ const HomePage: React.FC = () => {
     isSearch.current = false;
   }, [categoryId, sortType]);
 
-  const filteredItems = useMemo(
+  const filteredItems = React.useMemo(
     () =>
       products
         .filter((product: Product) => {
@@ -133,9 +128,9 @@ const HomePage: React.FC = () => {
     [products, searchQueue]
   );
 
-  const itemsCount = useMemo(() => filteredItems.length, [filteredItems]);
+  const itemsCount = React.useMemo(() => filteredItems.length, [filteredItems]);
 
-  const pages = useMemo(() => Math.ceil(itemsCount / PAGE_SIZE), [itemsCount]);
+  const pages = React.useMemo(() => Math.ceil(itemsCount / PAGE_SIZE), [itemsCount]);
 
   const showPages: JSX.Element =
     pages - 1 ? (
@@ -144,7 +139,7 @@ const HomePage: React.FC = () => {
       <></>
     );
 
-  const itemsPage = useMemo(
+  const itemsPage = React.useMemo(
     () => paginate(filteredItems, PAGE_SIZE, currentPage + 1),
     [filteredItems, currentPage]
   );
@@ -176,7 +171,7 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <Fragment>
+    <React.Fragment>
       <div className="content__top">
         <Categories
           selectedCategory={categoryId}
@@ -186,7 +181,7 @@ const HomePage: React.FC = () => {
       </div>
       <div className="content__items">{Content}</div>
       {Buttom}
-    </Fragment>
+    </React.Fragment>
   );
 };
 

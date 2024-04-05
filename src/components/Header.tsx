@@ -1,12 +1,12 @@
 import React, { Fragment, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSearchQueue } from '../store/slices/filterSlice';
+import { setSearchQueue } from '../store/filter/slice';
 
 import logo from '../assets/icons/dodoPizza.svg';
 import cart from '../assets/icons/cartWhite.svg';
 import Input from './Search/Search';
-import { selectCart } from '../store/slices/cartSlice';
+import { selectCart } from '../store/cart/selectors';
 
 const Header: React.FC = () => {
   const { items, totalCount, totalPrice } = useSelector(selectCart);

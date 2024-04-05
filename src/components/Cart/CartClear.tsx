@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
 type CartClearProps = {
   onClick: () => void;
-}
+};
 
 const CartClear: React.FC<CartClearProps> = (props) => {
   return (

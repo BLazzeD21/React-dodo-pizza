@@ -5,7 +5,10 @@ import useSound from "use-sound";
 
 import CartClear from "./CartClear";
 import CartItem from "./CartItem";
-import { clearCart, selectCart } from "../../store/slices/cartSlice";
+
+import { clearCart } from "../../store/cart/slice";
+import { selectCart } from "../../store/cart/selectors";
+
 import jingle from "../../assets/sounds/jingle.wav";
 import cartImage from "../../assets/icons/cartBlack.svg";
 

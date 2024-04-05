@@ -1,14 +1,14 @@
-import React, { useRef, useState, useCallback, memo } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { setSearchQueue } from "../../store/slices/filterSlice";
+import { setSearchQueue } from "../../store/filter/slice";
 import debounce from "lodash.debounce";
 
-const Search = memo(() => {
+const Search = React.memo(() => {
   const dispatch = useDispatch();
 
-  const [value, setValue] = useState<string>("");
+  const [value, setValue] = React.useState<string>("");
 
-  const searchInput = useRef<HTMLInputElement>(null);
+  const searchInput = React.useRef<HTMLInputElement>(null);
 
   const clearSearchQueue = (): void => {
     setValue("");
@@ -16,7 +16,7 @@ const Search = memo(() => {
     searchInput.current?.focus();
   };
 
-  const updateSearchQueue = useCallback(
+  const updateSearchQueue = React.useCallback(
     debounce((queue: string) => {
       dispatch(setSearchQueue(queue));
     }, 250),

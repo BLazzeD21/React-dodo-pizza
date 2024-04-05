@@ -1,15 +1,18 @@
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
-import arrow from "../assets/icons/arrow.svg";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectSortType, setSortType } from "../store/slices/filterSlice";
-import { sortTypes } from "../utils/sortTypes";
 
-const Sort: React.FC = memo(() => {
+import { selectSortType } from "../store/filter/selectors";
+import { setSortType } from "../store/filter/slice";
+
+import { sortTypes } from "../utils/sortTypes";
+import arrow from "../assets/icons/arrow.svg";
+
+const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const sortType = useSelector(selectSortType);
 
-  const sortRef = useRef<HTMLDivElement>(null);
-  const [visibleSelect, setVisibleSelect] = useState<boolean>(false);
+  const sortRef = React.useRef<HTMLDivElement>(null);
+  const [visibleSelect, setVisibleSelect] = React.useState<boolean>(false);
 
   const onClickSort = (type: sort): void => {
     dispatch(setSortType(type));
@@ -24,7 +27,7 @@ const Sort: React.FC = memo(() => {
 
   const handleSetVisibleSelect = () => setVisibleSelect(!visibleSelect);
 
-  useEffect(() => {
+  React.useEffect(() => {
     document.body.addEventListener("click", handleClickOutside);
     return () => {
       document.body.removeEventListener("click", handleClickOutside);

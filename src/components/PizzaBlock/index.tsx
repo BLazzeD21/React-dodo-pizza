@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { calculatePrice } from "../../utils/calculatePrice";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../store/slices/cartSlice";
+import { addToCart } from "../../store/cart/slice";
 import { RootState } from "../../store/store";
 
 type PizzaProps = {
