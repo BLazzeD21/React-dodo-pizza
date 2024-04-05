@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useRef } from "react";
+import React, { Fragment, useCallback, useEffect, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
@@ -28,7 +28,6 @@ const PAGE_SIZE: number = 8;
 
 const HomePage: React.FC = () => {
   window.scrollTo(0, 0);
-
   const isSearch = useRef<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -42,7 +41,7 @@ const HomePage: React.FC = () => {
   const setSelectedCategory = useCallback((id: number) => dispatch(setCategoryId(id)), []);
   const setPage = useCallback((page: number) => dispatch(setCurrentPage(page)), []);
   
-  function fetchData(): void {
+  const fetchData = useCallback(() => {
     dispatch(
       fetchProducts({
         sortBy: sortType.sortBy,
@@ -50,7 +49,7 @@ const HomePage: React.FC = () => {
         categoryId: String(categoryId),
       })
     );
-  }
+  }, [dispatch, sortType, categoryId]);
 
   useEffect(() => {
     dispatch(setCurrentPage(0));
@@ -103,17 +102,21 @@ const HomePage: React.FC = () => {
     isSearch.current = false;
   }, [categoryId, sortType]);
 
-  const filteredItems: JSX.Element[] = products
-    .filter((product: Product) => {
+    useEffect(() => {
+      fetchData();
+
+  }, [categoryId, sortType]);
+
+  const filteredItems = useMemo(() => 
+    products.filter((product: Product) => {
       return product.title.toLowerCase().includes(searchQueue.toLowerCase());
-    })
-    .map((product: Product, index: number) => (
+    }).map((product: Product, index: number) => (
       <Pizza key={index} {...product} />
-    ));
+    )), [products, searchQueue]);
 
-  const itemsCount: number = filteredItems.length;
+  const itemsCount = useMemo(() => filteredItems.length, [filteredItems]);
 
-  const pages: number = Math.ceil(itemsCount / PAGE_SIZE);
+  const pages = useMemo(() => Math.ceil(itemsCount / PAGE_SIZE), [itemsCount]);
 
   const showPages: JSX.Element =
     pages - 1 ? (
@@ -126,11 +129,7 @@ const HomePage: React.FC = () => {
       <></>
     );
 
-  const itemsPage: JSX.Element[] = paginate(
-    filteredItems,
-    PAGE_SIZE,
-    currentPage + 1
-  );
+  const itemsPage = useMemo(() => paginate(filteredItems, PAGE_SIZE, currentPage + 1), [filteredItems, currentPage]);
 
   const Skeleton: JSX.Element[] = [...new Array(8)].map((_, index) => (
     <PizzaSkeleton key={index} />
@@ -157,6 +156,8 @@ const HomePage: React.FC = () => {
       );
       break;
   }
+
+  // useWhyDidYouUpdate('useWhyDidYouUpdateComponent', {  categoryId, sortType, searchQueue, currentPage,  products, status});
 
   return (
     <Fragment>

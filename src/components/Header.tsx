@@ -1,6 +1,7 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchQueue } from '../store/slices/filterSlice';
 
 import logo from '../assets/icons/dodoPizza.svg';
 import cart from '../assets/icons/cartWhite.svg';
@@ -8,9 +9,24 @@ import Input from './Search';
 import { selectCart } from '../store/slices/cartSlice';
 
 const Header: React.FC = () => {
-  const { totalCount, totalPrice } = useSelector(selectCart);
+  const { items, totalCount, totalPrice } = useSelector(selectCart);
+  const dispatch = useDispatch()
 
+  const isMounted = useRef(false);
   const location = useLocation();
+
+  const handleCartOnClick = () => {
+    dispatch(setSearchQueue(''))
+  }
+
+  useEffect(() => {
+    if (isMounted.current) {
+      const json = JSON.stringify(items);
+      localStorage.setItem('cartItems', json);
+    }
+
+    isMounted.current = true;
+  }, [items])
 
   return (
     <div className="header">
@@ -29,7 +45,7 @@ const Header: React.FC = () => {
         ) : (
           <Fragment>
             <Input />
-            <div className="header__cart">
+            <div className="header__cart" onClick={handleCartOnClick}>
               <Link to="/cart" className="button button--cart">
                 <span>{Math.round(totalPrice * 100) / 100} $</span>
                 <div className="button__delimiter"></div>

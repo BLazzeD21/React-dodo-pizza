@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
+    "ahooks": "^3.7.11",
     "axios": "^1.6.8",
     "eslint-config-google": "^0.14.0",
     "lodash.debounce": "^4.0.8",
