@@ -1,6 +1,6 @@
 import React, { useRef, useState, useCallback, memo } from "react";
 import { useDispatch } from "react-redux";
-import { setSearchQueue } from "../store/slices/filterSlice";
+import { setSearchQueue } from "../../store/slices/filterSlice";
 import debounce from "lodash.debounce";
 
 const Search = memo(() => {

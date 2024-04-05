@@ -1,13 +1,13 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import useSound from "use-sound";
 
-import cartImage from "../assets/icons/cartBlack.svg";
 import CartClear from "./CartClear";
 import CartItem from "./CartItem";
-import { useSelector, useDispatch } from "react-redux";
-import { clearCart, selectCart } from "../store/slices/cartSlice";
-import jingle from "../assets/sounds/jingle.wav";
+import { clearCart, selectCart } from "../../store/slices/cartSlice";
+import jingle from "../../assets/sounds/jingle.wav";
+import cartImage from "../../assets/icons/cartBlack.svg";
 
 const Cart: React.FC = () => {
   const navigate = useNavigate();

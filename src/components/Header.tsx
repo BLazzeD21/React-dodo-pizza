@@ -5,14 +5,14 @@ import { setSearchQueue } from '../store/slices/filterSlice';
 
 import logo from '../assets/icons/dodoPizza.svg';
 import cart from '../assets/icons/cartWhite.svg';
-import Input from './Search';
+import Input from './Search/Search';
 import { selectCart } from '../store/slices/cartSlice';
 
 const Header: React.FC = () => {
   const { items, totalCount, totalPrice } = useSelector(selectCart);
   const dispatch = useDispatch()
 
-  const isMounted = useRef(false);
+  const isMounted = useRef<boolean>(false);
   const location = useLocation();
 
   const handleCartOnClick = () => {

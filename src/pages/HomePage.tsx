@@ -1,4 +1,10 @@
-import React, { Fragment, useCallback, useEffect, useMemo, useRef } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store/store";
@@ -6,7 +12,7 @@ import Categories from "../components/Categories";
 import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
 import Pizza from "../components/PizzaBlock";
 import Sort from "../components/Sort";
-import SearchEmpty from "../components/SearchEmpty";
+import SearchEmpty from "../components/Search/SearchEmpty";
 import Pagination from "../components/Pagination";
 import ErrorBlock from "../components/ErrorBlock";
 
@@ -28,6 +34,7 @@ const PAGE_SIZE: number = 8;
 
 const HomePage: React.FC = () => {
   window.scrollTo(0, 0);
+  const isMounted = useRef<boolean>(false);
   const isSearch = useRef<boolean>(false);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -38,9 +45,15 @@ const HomePage: React.FC = () => {
 
   const { products, status } = useSelector(selectProducts);
 
-  const setSelectedCategory = useCallback((id: number) => dispatch(setCategoryId(id)), []);
-  const setPage = useCallback((page: number) => dispatch(setCurrentPage(page)), []);
-  
+  const setSelectedCategory = useCallback(
+    (id: number) => dispatch(setCategoryId(id)),
+    []
+  );
+  const setPage = useCallback(
+    (page: number) => dispatch(setCurrentPage(page)),
+    []
+  );
+
   const fetchData = useCallback(() => {
     dispatch(
       fetchProducts({
@@ -56,13 +69,17 @@ const HomePage: React.FC = () => {
   }, [searchQueue, categoryId, sortType]);
 
   useEffect(() => {
-    const queryParams = {
-      category: String(categoryId),
-      sortBy: sortType.sortBy,
-      order: sortType.order,
-    };
+    if (isMounted.current) {
+      const queryParams = {
+        category: String(categoryId),
+        sortBy: sortType.sortBy,
+        order: sortType.order,
+      };
 
-    setSearchParams(queryParams);
+      setSearchParams(queryParams);
+    }
+
+    isMounted.current = true;
   }, [sortType, categoryId]);
 
   useEffect(() => {
@@ -102,17 +119,19 @@ const HomePage: React.FC = () => {
     isSearch.current = false;
   }, [categoryId, sortType]);
 
-    useEffect(() => {
-      fetchData();
-
-  }, [categoryId, sortType]);
-
-  const filteredItems = useMemo(() => 
-    products.filter((product: Product) => {
-      return product.title.toLowerCase().includes(searchQueue.toLowerCase());
-    }).map((product: Product, index: number) => (
-      <Pizza key={index} {...product} />
-    )), [products, searchQueue]);
+  const filteredItems = useMemo(
+    () =>
+      products
+        .filter((product: Product) => {
+          return product.title
+            .toLowerCase()
+            .includes(searchQueue.toLowerCase());
+        })
+        .map((product: Product, index: number) => (
+          <Pizza key={index} {...product} />
+        )),
+    [products, searchQueue]
+  );
 
   const itemsCount = useMemo(() => filteredItems.length, [filteredItems]);
 
@@ -120,16 +139,15 @@ const HomePage: React.FC = () => {
 
   const showPages: JSX.Element =
     pages - 1 ? (
-      <Pagination
-        pages={pages}
-        page={currentPage}
-        setPage={setPage}
-      />
+      <Pagination pages={pages} page={currentPage} setPage={setPage} />
     ) : (
       <></>
     );
 
-  const itemsPage = useMemo(() => paginate(filteredItems, PAGE_SIZE, currentPage + 1), [filteredItems, currentPage]);
+  const itemsPage = useMemo(
+    () => paginate(filteredItems, PAGE_SIZE, currentPage + 1),
+    [filteredItems, currentPage]
+  );
 
   const Skeleton: JSX.Element[] = [...new Array(8)].map((_, index) => (
     <PizzaSkeleton key={index} />
@@ -156,8 +174,6 @@ const HomePage: React.FC = () => {
       );
       break;
   }
-
-  // useWhyDidYouUpdate('useWhyDidYouUpdateComponent', {  categoryId, sortType, searchQueue, currentPage,  products, status});
 
   return (
     <Fragment>

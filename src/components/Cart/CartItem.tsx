@@ -1,8 +1,8 @@
 import React from 'react';
-import Circle from './Circle';
+import Circle from '../Circle';
 import { useDispatch } from 'react-redux';
 import { addToCart, deleteFromCart,
-  removeFromCart } from '../store/slices/cartSlice';
+  removeFromCart } from '../../store/slices/cartSlice';
 
 
 const CartItem: React.FC<CartItem> = (props) => {

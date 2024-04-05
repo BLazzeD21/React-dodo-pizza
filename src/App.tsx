@@ -12,7 +12,7 @@ import './styles/styles.scss';
 
 const CartPage = lazy(() => import('./pages/CartPage'));
 const HomePage = lazy(() => import('./pages/HomePage'));
-const Layout = lazy(() => import('./pages/Layout'));
+const Layout = lazy(() => import('./components/Layout/Layout'));
 const NotFoundPage = lazy(() => import('./pages/NotFound'));
 
 

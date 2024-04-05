@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../assets/images/dodoQualityControl5.svg";
+import image from "../../assets/images/dodoQualityControl5.svg";
 
 type SearchEmptyProps = {
   searchQueue: string;
