@@ -1,13 +1,11 @@
 import React from "react";
 
-import Loader from "./Loader.jsx";
+import { Loader } from "../";
 
-const Loading: React.FC = () => {
+export const Loading: React.FC = () => {
   return (
     <div className="Loader__wrapper">
       <Loader />
     </div>
   );
 };
-
-export default Loading;

@@ -6,7 +6,7 @@ type PaginationProps = {
   pages: number;
 };
 
-const Pagination: React.FC<PaginationProps> = ({ page, setPage, pages }) => {
+export const Pagination: React.FC<PaginationProps> = ({ page, setPage, pages }) => {
   const startArrowHandle = (): void => {
     if (page !== 0) setPage(page - 1);
   };
@@ -58,4 +58,3 @@ const Pagination: React.FC<PaginationProps> = ({ page, setPage, pages }) => {
   );
 };
 
-export default Pagination;

@@ -6,7 +6,7 @@ type SearchEmptyProps = {
   searchQueue: string;
 };
 
-const SearchEmpty: React.FC<SearchEmptyProps> = ({ searchQueue }) => {
+export const SearchEmpty: React.FC<SearchEmptyProps> = ({ searchQueue }) => {
   return (
     <div className="empty" style={{ padding: "0" }}>
       <div className="empty__title">{`No matches for "${searchQueue}"`}</div>
@@ -17,4 +17,4 @@ const SearchEmpty: React.FC<SearchEmptyProps> = ({ searchQueue }) => {
   );
 };
 
-export default SearchEmpty;
+

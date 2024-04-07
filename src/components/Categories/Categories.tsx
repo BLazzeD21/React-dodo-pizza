@@ -5,7 +5,7 @@ type CategoriesProps = {
   setSelectedCategory: (id: number) => void;
 };
 
-const Categories: React.FC<CategoriesProps> = React.memo(
+export const Categories: React.FC<CategoriesProps> = React.memo(
   ({ selectedCategory, setSelectedCategory }) => {
     const categories = [
       "All",
@@ -36,4 +36,3 @@ const Categories: React.FC<CategoriesProps> = React.memo(
   }
 );
 
-export default Categories;

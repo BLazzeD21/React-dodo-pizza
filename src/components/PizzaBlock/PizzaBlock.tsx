@@ -17,7 +17,7 @@ type PizzaProps = {
 
 const pizzaTypes: string[] = ["thin", "traditional"];
 
-const Pizza: React.FC<PizzaProps> = (props) => {
+export const Pizza: React.FC<PizzaProps> = (props) => {
   const dispatch = useDispatch();
   const { id, title, imageUrl, types, sizes, price } = props;
 
@@ -137,4 +137,3 @@ const Pizza: React.FC<PizzaProps> = (props) => {
   );
 };
 
-export default Pizza;

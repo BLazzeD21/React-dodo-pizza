@@ -2,13 +2,15 @@ import React from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import Categories from "../components/Categories";
-import PizzaSkeleton from "../components/PizzaBlock/PizzaSkeleton";
-import Pizza from "../components/PizzaBlock";
-import Sort from "../components/Sort";
-import SearchEmpty from "../components/Search/SearchEmpty";
-import Pagination from "../components/Pagination";
-import ErrorBlock from "../components/ErrorBlock";
+import {
+  Categories,
+  PizzaSkeleton,
+  Pizza,
+  Sort,
+  SearchEmpty,
+  Pagination,
+  ErrorBlock,
+} from "../components";
 
 import paginate from "../utils/pagination";
 import { sortTypes } from "../utils/sortTypes";

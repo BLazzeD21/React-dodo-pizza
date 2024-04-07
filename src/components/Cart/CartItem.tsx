@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import Circle from "../Circle";
+import { Circle } from "../";
 
 import {
   addToCart,
@@ -9,7 +9,7 @@ import {
   removeFromCart,
 } from "../../store/cart/slice";
 
-const CartItem: React.FC<CartItem> = (props) => {
+export const CartItem: React.FC<CartItem> = (props) => {
   const dispatch = useDispatch();
 
   const { id, title, type, size, count, price, imageUrl } = props;
@@ -87,5 +87,3 @@ const CartItem: React.FC<CartItem> = (props) => {
     </div>
   );
 };
-
-export default CartItem;

@@ -4,7 +4,7 @@ type CartClearProps = {
   onClick: () => void;
 };
 
-const CartClear: React.FC<CartClearProps> = (props) => {
+export const CartClear: React.FC<CartClearProps> = (props) => {
   return (
     <button className="cart__clear" {...props}>
       <svg
@@ -56,5 +56,3 @@ const CartClear: React.FC<CartClearProps> = (props) => {
     </button>
   );
 };
-
-export default CartClear;

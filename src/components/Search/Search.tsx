@@ -4,7 +4,7 @@ import debounce from "lodash.debounce";
 
 import { setSearchQueue } from "../../store/filter/slice";
 
-const Search = React.memo(() => {
+export const Search: React.FC = React.memo(() => {
   const dispatch = useDispatch();
 
   const [value, setValue] = React.useState<string>("");
@@ -143,4 +143,3 @@ const Search = React.memo(() => {
   );
 });
 
-export default Search;

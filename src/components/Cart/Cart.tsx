@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import useSound from "use-sound";
 
-import CartClear from "./CartClear";
-import CartItem from "./CartItem";
+import { CartClear, CartItem } from "../";
 
 import { clearCart } from "../../store/cart/slice";
 import { selectCart } from "../../store/cart/selectors";
@@ -12,7 +11,7 @@ import { selectCart } from "../../store/cart/selectors";
 import jingle from "../../assets/sounds/jingle.wav";
 import cartImage from "../../assets/icons/cartBlack.svg";
 
-const Cart: React.FC = () => {
+export const Cart: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -80,5 +79,3 @@ const Cart: React.FC = () => {
     </div>
   );
 };
-
-export default Cart;

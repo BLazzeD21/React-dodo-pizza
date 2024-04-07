@@ -1,14 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import lineLogo from "../assets/images/dodoPizzaLine.svg";
+import lineLogo from "../../assets/images/dodoPizzaLine.svg";
 
 type EmptyBlockProps = {
   title: string;
   image: string;
 };
 
-const EmptyBlock: React.FC<EmptyBlockProps> = ({ title, image }) => {
+export const EmptyBlock: React.FC<EmptyBlockProps> = ({ title, image }) => {
   return (
     <div className="empty">
       <div className="empty__title">{title}</div>
@@ -24,5 +24,3 @@ const EmptyBlock: React.FC<EmptyBlockProps> = ({ title, image }) => {
     </div>
   );
 };
-
-export default EmptyBlock;

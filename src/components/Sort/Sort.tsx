@@ -1,14 +1,14 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { sortTypes } from "../utils/sortTypes";
+import { sortTypes } from "../../utils/sortTypes";
 
-import { selectSortType } from "../store/filter/selectors";
-import { setSortType } from "../store/filter/slice";
+import { selectSortType } from "../../store/filter/selectors";
+import { setSortType } from "../../store/filter/slice";
 
-import arrow from "../assets/icons/arrow.svg";
+import arrow from "../../assets/icons/arrow.svg";
 
-const Sort: React.FC = React.memo(() => {
+export const Sort: React.FC = React.memo(() => {
   const dispatch = useDispatch();
   const sortType = useSelector(selectSortType);
 
@@ -66,5 +66,3 @@ const Sort: React.FC = React.memo(() => {
     </div>
   );
 });
-
-export default Sort;

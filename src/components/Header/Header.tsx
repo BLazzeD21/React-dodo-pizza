@@ -2,15 +2,15 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import Input from "./Search/Search";
+import { Search } from "../";
 
-import { setSearchQueue } from "../store/filter/slice";
-import { selectCart } from "../store/cart/selectors";
+import { setSearchQueue } from "../../store/filter/slice";
+import { selectCart } from "../../store/cart/selectors";
 
-import logo from "../assets/icons/dodoPizza.svg";
-import cart from "../assets/icons/cartWhite.svg";
+import logo from "../../assets/icons/dodoPizza.svg";
+import cart from "../../assets/icons/cartWhite.svg";
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const { items, totalCount, totalPrice } = useSelector(selectCart);
   const dispatch = useDispatch();
 
@@ -46,7 +46,7 @@ const Header: React.FC = () => {
           ""
         ) : (
           <React.Fragment>
-            <Input />
+            <Search />
             <div className="header__cart" onClick={handleCartOnClick}>
               <Link to="/cart" className="button button--cart">
                 <span>{Math.round(totalPrice * 100) / 100} $</span>
@@ -67,4 +67,3 @@ const Header: React.FC = () => {
   );
 };
 
-export default Header;

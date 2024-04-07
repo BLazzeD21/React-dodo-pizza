@@ -1,8 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import CartEmply from "../components/Cart/CartEmpty";
-import Cart from "../components/Cart/Cart";
+import { CartEmply, Cart } from "../components";
 
 import { selectCart } from "../store/cart/selectors";
 

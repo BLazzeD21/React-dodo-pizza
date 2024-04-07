@@ -6,11 +6,10 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 
-import Loading from "./components/Loading";
+import { Loading, Layout } from './components'
 
 const CartPage = React.lazy(() => import("./pages/CartPage"));
 const HomePage = React.lazy(() => import("./pages/HomePage"));
-const Layout = React.lazy(() => import("./components/Layout/Layout"));
 const NotFoundPage = React.lazy(() => import("./pages/NotFound"));
 
 import "./styles/styles.scss";
